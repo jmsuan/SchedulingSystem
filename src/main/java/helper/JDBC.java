@@ -11,7 +11,7 @@ public abstract class JDBC {
     private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     private static final String userName = "sqlUser"; // Username
-    public static Connection connection;  // Connection Interface
+    private static Connection connection;  // Connection Interface
 
     public static void openConnection()
     {
@@ -26,6 +26,11 @@ public abstract class JDBC {
         {
             System.out.println("Error:" + e.getMessage());
         }
+    }
+
+    public static Connection getConnection()
+    {
+        return connection;
     }
 
     public static void closeConnection() {
