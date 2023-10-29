@@ -10,11 +10,18 @@ import lanej.schedulingsystem.helper.ScreenUtility;
 import java.io.IOException;
 
 public class SchedulingApplication extends Application {
-    SceneType loginScreen = new SceneType(
+    public static SceneType loginScene = new SceneType(
             "Scheduling Login",
             "view/login-screen.fxml",
-            350.0,
-            430.0);
+            370.0,
+            470.0);
+    public static SceneType customersAppointmentsScene = new SceneType(
+            "Schedule Manager",
+            "view/customers-appointments.fxml",
+            640.0,
+            300.0,
+            1075.0,
+            580.0);
     @Override
     public void init() {
 
@@ -27,11 +34,12 @@ public class SchedulingApplication extends Application {
         stage.getIcons().add(iconImage);
 
         // Set stage to the first scene (the login screen)
-        ScreenUtility.changeStageScene(stage, loginScreen);
+        ScreenUtility.changeStageScene(stage, loginScene);
     }
 
     public static void main(String[] args) {
         JDBC.openConnection();
+        // Locale.setDefault(new Locale("fr"));
         launch();
         JDBC.closeConnection();
     }

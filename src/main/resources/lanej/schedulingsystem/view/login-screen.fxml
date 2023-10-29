@@ -5,38 +5,34 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="430.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="-Infinity" prefHeight="120.0" prefWidth="438.0" text="Scheduling Application" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Label>
-      <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="228.0" prefWidth="238.0">
-         <children>
-            <Label focusTraversable="false" text="Username:">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin></Label>
-            <TextField />
-            <Label focusTraversable="false" text="Password:">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin></Label>
-            <PasswordField />
-            <VBox alignment="CENTER">
-               <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Login" textAlignment="CENTER" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" top="20.0" />
-               </VBox.margin>
-            </VBox>
-         </children>
-      </VBox>
-      <Label focusTraversable="false" text="Detected Location:" />
-   </children>
+<VBox alignment="CENTER" prefHeight="470.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lanej.schedulingsystem.controller.LoginScreen">
    <padding>
       <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
    </padding>
+   <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="120.0" prefWidth="438.0" text="Scheduling Application" textAlignment="CENTER" wrapText="true">
+      <font>
+         <Font name="System Bold" size="36.0" />
+      </font>
+   </Label>
+   <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="228.0" prefWidth="238.0">
+      <Label fx:id="nameLabel" text="Username:">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Label>
+      <TextField />
+      <Label fx:id="passwordLabel" text="Password:">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Label>
+      <PasswordField />
+      <VBox alignment="CENTER">
+         <VBox.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </VBox.margin>
+         <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#attemptLogin" text="Login" textAlignment="CENTER" />
+      </VBox>
+   </VBox>
+   <Label fx:id="locationLabel" text="Detected Location: " />
 </VBox>

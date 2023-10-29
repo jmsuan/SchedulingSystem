@@ -1,7 +1,11 @@
 package lanej.schedulingsystem.helper;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import lanej.schedulingsystem.SchedulingApplication;
@@ -32,5 +36,13 @@ public abstract class ScreenUtility {
         }
 
         stage.show();
+    }
+    public static void changeStageScene(ActionEvent actionEvent, SceneType scene) throws IOException {
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        changeStageScene(stage, scene);
+    }
+    public static void alert(String alertMessage) {
+        Alert alert = new Alert(AlertType.ERROR, alertMessage);
+        alert.showAndWait();
     }
 }
