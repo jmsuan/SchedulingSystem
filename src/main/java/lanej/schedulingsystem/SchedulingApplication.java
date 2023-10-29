@@ -1,21 +1,33 @@
 package lanej.schedulingsystem;
 
-import lanej.schedulingsystem.dao.JDBC;
+import javafx.scene.image.Image;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lanej.schedulingsystem.dao.JDBC;
+import lanej.schedulingsystem.helper.SceneType;
+import lanej.schedulingsystem.helper.ScreenUtility;
 
 import java.io.IOException;
 
 public class SchedulingApplication extends Application {
+    SceneType loginScreen = new SceneType(
+            "Scheduling Login",
+            "view/login-screen.fxml",
+            350.0,
+            430.0);
+    @Override
+    public void init() {
+
+    }
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SchedulingApplication.class.getResource("view/login-screen.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+        // Set application icon
+        // Attribution not required, but sourced here: https://uxwing.com/timetable-icon/
+        Image iconImage = new Image(String.valueOf(SchedulingApplication.class.getResource("icon.png")));
+        stage.getIcons().add(iconImage);
+
+        // Set stage to the first scene (the login screen)
+        ScreenUtility.changeStageScene(stage, loginScreen);
     }
 
     public static void main(String[] args) {
