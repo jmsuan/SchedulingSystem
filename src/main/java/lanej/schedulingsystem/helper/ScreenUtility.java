@@ -22,8 +22,8 @@ public abstract class ScreenUtility {
         stage.setWidth(sceneType.getWidth());
         stage.setHeight(sceneType.getHeight());
 
-        // Check if window would be inaccessible if centered,
-        // add 50.0 to accommodate taskbar (although this isn't an exact height)
+        // Check if stage would be inaccessible if centered on screen,
+        // adding 50.0px to height accommodate taskbar (although this isn't an exact height)
         if ((stage.getHeight() + 50.0) < Screen.getPrimary().getBounds().getHeight() &&
                 stage.getWidth() < Screen.getPrimary().getBounds().getWidth()) {
             // Center the Stage on primary display
