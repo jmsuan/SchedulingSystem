@@ -1,4 +1,4 @@
-package lanej.schedulingsystem.helper;
+package lanej.schedulingsystem.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

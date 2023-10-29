@@ -1,6 +1,6 @@
 package lanej.schedulingsystem;
 
-import lanej.schedulingsystem.helper.JDBC;
+import lanej.schedulingsystem.dao.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
