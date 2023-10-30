@@ -41,6 +41,10 @@ public class LoginScreen implements Initializable {
         loginButton.setText(langBundle.getString("loginScreenLoginButton"));
         ZoneId userZone = ZoneId.systemDefault();
         locationLabel.setText(langBundle.getString("loginScreenLocationLabel") + " " + userZone);
+
+        // Set input fields to empty
+        usernameField.setText("");
+        passwordField.setText("");
     }
 
     public void attemptLogin(ActionEvent actionEvent) throws IOException {
@@ -50,6 +54,10 @@ public class LoginScreen implements Initializable {
         }
         User submittedUserInfo = new User(null, usernameField.getText(), passwordField.getText());
         if (UserDAO.checkForValidUser(submittedUserInfo)) {
+            // After authentication, get user info (includes ID)
+            SchedulingApplication.loggedInUser = UserDAO.getUserByUsernameAndPassword(usernameField.getText(),
+                    passwordField.getText());
+            System.out.println("Successfully signed in as " + SchedulingApplication.loggedInUser);
             ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
         } else {
             ScreenUtility.alert(langBundle.getString("loginScreenAlertBadCredentials"));

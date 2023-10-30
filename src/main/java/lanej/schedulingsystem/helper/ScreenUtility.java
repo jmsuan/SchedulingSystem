@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import lanej.schedulingsystem.SchedulingApplication;
@@ -14,6 +15,11 @@ import java.io.IOException;
 
 public abstract class ScreenUtility {
     public static void changeStageScene(Stage stage, SceneType sceneType) throws IOException {
+        // If going to loginScene, clear loggedInUser
+        if (sceneType.equals(SchedulingApplication.loginScene) && SchedulingApplication.loggedInUser != null) {
+            SchedulingApplication.loggedInUser = null;
+        }
+
         // Load the sceneType's FXML into a new scene object
         FXMLLoader fxmlLoader = new FXMLLoader(SchedulingApplication.class.getResource(sceneType.getFilePath()));
         Scene scene = new Scene(fxmlLoader.load());
@@ -43,21 +49,34 @@ public abstract class ScreenUtility {
         changeStageScene(stage, scene);
     }
 
-    private static void alert(AlertType type, String message) {
+    private static Boolean alert(AlertType type, String message) {
         Alert alert = new Alert(type, message);
         System.out.println(type + " Alert" + ": " + message);
+        Boolean result = null;
         alert.showAndWait();
+        if (alert.getResult() != null) {
+            if (alert.getResult().equals(ButtonType.OK)) {
+                result = true;
+            } else if (alert.getResult().equals(ButtonType.CANCEL)) {
+                result = false;
+            }
+        }
+        return result;
     }
 
     public static void alert(String alertMessage) {
         alert(AlertType.ERROR, alertMessage);
     }
 
-    public static void showInfo(String informationMessage) {
+    public static void showInformation(String informationMessage) {
         alert(AlertType.INFORMATION, informationMessage);
     }
 
-    public static void showWarning(String warningMessage) {
-        alert(AlertType.WARNING, warningMessage);
+    public static Boolean showConfirmation(String confirmationMessage) {
+        return alert(AlertType.CONFIRMATION, confirmationMessage);
+    }
+
+    public static Boolean showWarning(String warningMessage) {
+        return alert(AlertType.WARNING, warningMessage);
     }
 }

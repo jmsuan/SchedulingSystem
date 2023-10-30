@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import lanej.schedulingsystem.dao.JDBC;
 import lanej.schedulingsystem.helper.SceneType;
 import lanej.schedulingsystem.helper.ScreenUtility;
+import lanej.schedulingsystem.model.User;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -24,6 +25,8 @@ public class SchedulingApplication extends Application {
             350.0,
             1075.0,
             580.0);
+    public static User loggedInUser = null;
+
     @Override
     public void init() {
         loginScene.setScreenTitle(ResourceBundle.getBundle("bundle/lang").getString(
@@ -42,7 +45,7 @@ public class SchedulingApplication extends Application {
 
     public static void main(String[] args) {
         JDBC.openConnection();
-        Locale.setDefault(new Locale("fr"));
+        //Locale.setDefault(new Locale("fr"));
         launch();
         JDBC.closeConnection();
     }

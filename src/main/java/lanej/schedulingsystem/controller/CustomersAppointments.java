@@ -22,6 +22,7 @@ public class CustomersAppointments {
     }
 
     public void logoutButton(ActionEvent actionEvent) {
+
     }
     // TODO: Change column tables on TableViews
 }
