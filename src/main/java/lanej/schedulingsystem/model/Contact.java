@@ -1,16 +1,16 @@
 package lanej.schedulingsystem.model;
 
 public class Contact {
-    private int contactID;
+    private int contactId;
     private String contactName;
     private String email;
-    public Contact(int contactID, String contactName, String email) {
-        this.contactID = contactID;
+    public Contact(int contactId, String contactName, String email) {
+        this.contactId = contactId;
         this.contactName = contactName;
         this.email = email;
     }
-    public void setContactID(int contactID) {
-        this.contactID = contactID;
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
     }
     public void setContactName(String contactName) {
         this.contactName = contactName;
@@ -18,8 +18,8 @@ public class Contact {
     public void setEmail(String email) {
         this.email = email;
     }
-    public int getContactID() {
-        return contactID;
+    public int getContactId() {
+        return contactId;
     }
     public String getContactName() {
         return contactName;

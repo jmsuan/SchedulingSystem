@@ -18,8 +18,8 @@ public class SchedulingApplication extends Application {
     public static SceneType customersAppointmentsScene = new SceneType(
             "Schedule Manager",
             "view/customers-appointments.fxml",
-            640.0,
-            300.0,
+            880.0,
+            350.0,
             1075.0,
             580.0);
     @Override

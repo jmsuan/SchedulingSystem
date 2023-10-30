@@ -3,7 +3,7 @@ package lanej.schedulingsystem.model;
 import java.time.LocalDateTime;
 
 public class Appointment {
-    private int appointmentID;
+    private int appointmentId;
     private String title;
     private String description;
     private String location;
@@ -14,7 +14,7 @@ public class Appointment {
     private User user;
     private Contact contact;
 
-    public Appointment(int appointmentID,
+    public Appointment(int appointmentId,
                        String title,
                        String description,
                        String location,
@@ -24,7 +24,7 @@ public class Appointment {
                        Customer customer,
                        User user,
                        Contact contact) {
-        this.appointmentID = appointmentID;
+        this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
         this.location = location;
@@ -36,8 +36,8 @@ public class Appointment {
         this.contact = contact;
     }
 
-    public void setAppointmentID(int appointmentID) {
-        this.appointmentID = appointmentID;
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public void setTitle(String title) {

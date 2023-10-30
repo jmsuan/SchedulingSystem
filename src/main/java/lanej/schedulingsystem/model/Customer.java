@@ -1,27 +1,27 @@
 package lanej.schedulingsystem.model;
 
 public class Customer {
-    private int customerID;
+    private int customerId;
     private String customerName;
     private String address;
     private String postalCode;
     private String phone;
     private FirstLevelDivision division;
-    public Customer(int customerID,
+    public Customer(int customerId,
                     String customerName,
                     String address,
                     String postalCode,
                     String phone,
                     FirstLevelDivision division) {
-        this.customerID = customerID;
+        this.customerId = customerId;
         this.customerName = customerName;
         this.address = address;
         this.postalCode = postalCode;
         this.phone = phone;
         this.division = division;
     }
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
@@ -38,8 +38,8 @@ public class Customer {
     public void setDivision(FirstLevelDivision division) {
         this.division = division;
     }
-    public int getCustomerID() {
-        return customerID;
+    public int getCustomerId() {
+        return customerId;
     }
     public String getCustomerName() {
         return customerName;

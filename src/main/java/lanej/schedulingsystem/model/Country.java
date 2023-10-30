@@ -1,20 +1,20 @@
 package lanej.schedulingsystem.model;
 
 public class Country {
-    private int countryID;
+    private int countryId;
     private String country;
-    public Country(int countryID, String country) {
-        this.countryID = countryID;
+    public Country(int countryId, String country) {
+        this.countryId = countryId;
         this.country = country;
     }
     public void setCountry(String country) {
         this.country = country;
     }
-    public void setCountryID(int countryID) {
-        this.countryID = countryID;
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
     }
-    public int getCountryID() {
-        return countryID;
+    public int getCountryId() {
+        return countryId;
     }
     public String getCountry() {
         return country;

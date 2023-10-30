@@ -1,16 +1,16 @@
 package lanej.schedulingsystem.model;
 
 public class FirstLevelDivision {
-    private int divisionID;
+    private int divisionId;
     private String division;
     private Country country;
-    public FirstLevelDivision(int divisionID, String division, Country country) {
-        this.divisionID = divisionID;
+    public FirstLevelDivision(int divisionId, String division, Country country) {
+        this.divisionId = divisionId;
         this.division = division;
         this.country = country;
     }
-    public void setDivisionID(int divisionID) {
-        this.divisionID = divisionID;
+    public void setDivisionId(int divisionId) {
+        this.divisionId = divisionId;
     }
     public void setCountry(Country country) {
         this.country = country;
@@ -18,10 +18,10 @@ public class FirstLevelDivision {
     public void setDivision(String division) {
         this.division = division;
     }
-    public int getDivisionID() {
-        return divisionID;
+    public int getDivisionId() {
+        return divisionId;
     }
-    public String getDivision() {
+    public String getDivisionName() {
         return division;
     }
     public Country getCountry() {
