@@ -44,6 +44,10 @@ public class LoginScreen implements Initializable {
     }
 
     public void attemptLogin(ActionEvent actionEvent) throws IOException {
+        if (usernameField.getText().isBlank() || passwordField.getText().isBlank()) {
+            ScreenUtility.alert(langBundle.getString("loginScreenAlertMissingCredentials"));
+            return;
+        }
         User submittedUserInfo = new User(null, usernameField.getText(), passwordField.getText());
         if (UserDAO.checkForValidUser(submittedUserInfo)) {
             ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);

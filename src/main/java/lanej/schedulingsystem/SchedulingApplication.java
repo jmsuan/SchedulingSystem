@@ -42,7 +42,7 @@ public class SchedulingApplication extends Application {
 
     public static void main(String[] args) {
         JDBC.openConnection();
-        //Locale.setDefault(new Locale("fr"));
+        Locale.setDefault(new Locale("fr"));
         launch();
         JDBC.closeConnection();
     }

@@ -25,6 +25,27 @@ public abstract class UserDAO {
         return false;
     }
 
+    public static User getUserByUsernameAndPassword(String username, String password) {
+        User user = null;
+        try {
+            PreparedStatement query = JDBC.getConnection().prepareStatement(
+                    "SELECT * FROM users WHERE User_Name = ? AND Password = ? LIMIT 1");
+            query.setString(1, username);
+            query.setString(2, password);
+            ResultSet rs = query.executeQuery();
+            // Move past header to user record
+            rs.next();
+            user = new User(
+                    rs.getInt("User_ID"),
+                    rs.getString("User_Name"),
+                    rs.getString("Password"));
+        } catch (SQLException sqlException) {
+            ScreenUtility.alert("Error when trying to find user by username and password!\nMessage: " +
+                    sqlException.getMessage());
+        }
+        return user;
+    }
+
     public static User getUserById(Integer userId) {
         User user = null;
         try {
