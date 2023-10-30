@@ -35,6 +35,11 @@ public class SceneType {
         this.width = minWidth;
         this.height = minHeight;
     }
+
+    public void setScreenTitle(String screenTitle) {
+        this.screenTitle = screenTitle;
+    }
+
     public String getTitle() {
         return screenTitle;
     }

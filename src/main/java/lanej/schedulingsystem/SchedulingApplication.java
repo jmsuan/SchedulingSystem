@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 
 public class SchedulingApplication extends Application {
     public static SceneType loginScene = new SceneType(
-            ResourceBundle.getBundle("bundle/lang").getString("loginScreenTitleLabel"),
+            "Scheduling Login",
             "view/login-screen.fxml",
             370.0,
             470.0);
@@ -26,7 +26,8 @@ public class SchedulingApplication extends Application {
             580.0);
     @Override
     public void init() {
-
+        loginScene.setScreenTitle(ResourceBundle.getBundle("bundle/lang").getString(
+                "loginScreenTitleLabel"));
     }
     @Override
     public void start(Stage stage) throws IOException {
@@ -41,7 +42,7 @@ public class SchedulingApplication extends Application {
 
     public static void main(String[] args) {
         JDBC.openConnection();
-        Locale.setDefault(new Locale("fr"));
+        //Locale.setDefault(new Locale("fr"));
         launch();
         JDBC.closeConnection();
     }
