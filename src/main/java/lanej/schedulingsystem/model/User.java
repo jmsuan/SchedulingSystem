@@ -1,15 +1,15 @@
 package lanej.schedulingsystem.model;
 
 public class User {
-    private int userId;
+    private Integer userId;
     private String userName;
     private String password;
-    public User(int userId, String userName, String password) {
+    public User(Integer userId, String userName, String password) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
     }
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
     public void setUserName(String userName) {
@@ -18,7 +18,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
     public String getUserName() {

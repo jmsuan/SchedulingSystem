@@ -15,6 +15,8 @@ public abstract class UserDAO {
             query.setString(1, userInfoToCheck.getUserName());
             query.setString(2, userInfoToCheck.getPassword());
             ResultSet rs = query.executeQuery();
+            // Move past header to count
+            rs.next();
             return rs.getInt(1) > 0;
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when querying for valid user!\nMessage: " +
@@ -23,7 +25,7 @@ public abstract class UserDAO {
         return false;
     }
 
-    public static User getUserById(int userId) {
+    public static User getUserById(Integer userId) {
         User user = null;
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement(

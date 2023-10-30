@@ -14,21 +14,20 @@ public abstract class CustomerDAO {
     public static boolean insert(Customer customer) {
         boolean successful = false;
         try {
+            // Let database handle ID creation
             PreparedStatement query = JDBC.getConnection().prepareStatement(
                     "INSERT INTO customers (" +
-                            "Customer_ID, " +
                             "Customer_Name, " +
                             "Address, " +
                             "Postal_Code, " +
                             "Phone, " +
                             "Division_ID)" +
-                        "VALUES (?, ?, ?, ?, ?, ?)");
-            query.setInt(1, customer.getCustomerId());
-            query.setString(2, customer.getCustomerName());
-            query.setString(3, customer.getAddress());
-            query.setString(4, customer.getPostalCode());
-            query.setString(5, customer.getPhone());
-            query.setInt(6, customer.getDivision().getDivisionId());
+                        "VALUES (?, ?, ?, ?, ?)");
+            query.setString(1, customer.getCustomerName());
+            query.setString(2, customer.getAddress());
+            query.setString(3, customer.getPostalCode());
+            query.setString(4, customer.getPhone());
+            query.setInt(5, customer.getDivision().getDivisionId());
             successful = query.executeUpdate() > 0;
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when adding customer!\nMessage: " + sqlException.getMessage());

@@ -8,10 +8,12 @@ import lanej.schedulingsystem.helper.SceneType;
 import lanej.schedulingsystem.helper.ScreenUtility;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class SchedulingApplication extends Application {
     public static SceneType loginScene = new SceneType(
-            "Scheduling Login",
+            ResourceBundle.getBundle("bundle/lang").getString("loginScreenTitleLabel"),
             "view/login-screen.fxml",
             370.0,
             470.0);
@@ -39,7 +41,7 @@ public class SchedulingApplication extends Application {
 
     public static void main(String[] args) {
         JDBC.openConnection();
-        // Locale.setDefault(new Locale("fr"));
+        Locale.setDefault(new Locale("fr"));
         launch();
         JDBC.closeConnection();
     }

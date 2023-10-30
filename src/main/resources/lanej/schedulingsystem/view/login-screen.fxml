@@ -15,18 +15,18 @@
       </font>
    </Label>
    <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="228.0" prefWidth="238.0">
-      <Label fx:id="nameLabel" text="Username:">
+      <Label fx:id="usernameLabel" text="Username:">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
       </Label>
-      <TextField />
+      <TextField fx:id="usernameField" />
       <Label fx:id="passwordLabel" text="Password:">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
       </Label>
-      <PasswordField />
+      <PasswordField fx:id="passwordField" />
       <VBox alignment="CENTER">
          <VBox.margin>
             <Insets bottom="20.0" top="20.0" />

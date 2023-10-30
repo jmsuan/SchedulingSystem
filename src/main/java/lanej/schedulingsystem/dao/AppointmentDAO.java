@@ -13,9 +13,9 @@ public abstract class AppointmentDAO {
     public static boolean insert(Appointment appointment) {
         boolean successful = false;
         try {
+            // Let database handle id creation
             PreparedStatement query = JDBC.getConnection().prepareStatement(
                     "INSERT INTO appointments (" +
-                            "Appointment_ID, " +
                             "Title, " +
                             "Description, " +
                             "Location, " +
@@ -25,17 +25,16 @@ public abstract class AppointmentDAO {
                             "Customer_ID, " +
                             "User_ID, " +
                             "Contact_ID)" +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            query.setInt(1, appointment.getAppointmentId());
-            query.setString(2, appointment.getTitle());
-            query.setString(3, appointment.getDescription());
-            query.setString(4, appointment.getLocation());
-            query.setString(5, appointment.getType());
-            query.setTimestamp(6, Timestamp.valueOf(appointment.getStart()));
-            query.setTimestamp(7, Timestamp.valueOf(appointment.getEnd()));
-            query.setInt(8, appointment.getCustomer().getCustomerId());
-            query.setInt(9, appointment.getUser().getUserId());
-            query.setInt(10, appointment.getContact().getContactId());
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            query.setString(1, appointment.getTitle());
+            query.setString(2, appointment.getDescription());
+            query.setString(3, appointment.getLocation());
+            query.setString(4, appointment.getType());
+            query.setTimestamp(5, Timestamp.valueOf(appointment.getStart()));
+            query.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));
+            query.setInt(7, appointment.getCustomer().getCustomerId());
+            query.setInt(8, appointment.getUser().getUserId());
+            query.setInt(9, appointment.getContact().getContactId());
             successful = query.executeUpdate() > 0;
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when trying to insert appointment!\nMessage: " +
