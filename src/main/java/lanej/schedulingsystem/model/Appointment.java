@@ -67,6 +67,9 @@ public class Appointment {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
+    public int getAppointmentId() {
+        return appointmentId;
+    }
     public String getTitle() {
         return title;
     }

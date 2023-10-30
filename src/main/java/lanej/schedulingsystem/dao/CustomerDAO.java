@@ -11,7 +11,7 @@ import java.util.List;
 
 public abstract class CustomerDAO {
 
-    public boolean insert(Customer customer) {
+    public static boolean insert(Customer customer) {
         boolean successful = false;
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement(
@@ -35,7 +35,7 @@ public abstract class CustomerDAO {
         }
         return successful;
     }
-    public boolean update(Customer updatedCustomer) {
+    public static boolean update(Customer updatedCustomer) {
         boolean successful = false;
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement(
@@ -44,7 +44,7 @@ public abstract class CustomerDAO {
                             "Address = ?, " +
                             "Postal_Code = ?, " +
                             "Phone = ?, " +
-                            "Division_ID = ?" +
+                            "Division_ID = ? " +
                         "WHERE Customer_ID = ?");
             query.setString(1, updatedCustomer.getCustomerName());
             query.setString(2, updatedCustomer.getAddress());
@@ -58,7 +58,8 @@ public abstract class CustomerDAO {
         }
         return successful;
     }
-    public boolean delete(Customer customer) {
+
+    public static boolean delete(Customer customer) {
         boolean successful = false;
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement(
@@ -70,31 +71,38 @@ public abstract class CustomerDAO {
         }
         return successful;
     }
-    public static List<Customer> getAllCustomers() throws SQLException {
+
+    public static List<Customer> getAllCustomers() {
         // List of Customers may change during program execution,
         // so I will retrieve a fresh list each time this is called.
-        PreparedStatement query = JDBC.getConnection().prepareStatement("SELECT * FROM customers");
         List<Customer> customerList = null;
-        ResultSet rs = query.executeQuery();
-        while(rs.next()) {
-            // Find stored division that matches customer
-            int divisionId = rs.getInt("Division_ID");
-            FirstLevelDivision divisionToSet = null;
-            for (FirstLevelDivision division:
-                 FirstLevelDivisionDAO.getAllDivisions()) {
-                if (divisionId == division.getDivisionId()) {
-                    divisionToSet = division;
-                    break;
+        try {
+            PreparedStatement query = JDBC.getConnection().prepareStatement("SELECT * FROM customers");
+            ResultSet rs = query.executeQuery();
+            while(rs.next()) {
+                // Find stored division that matches customer
+                int divisionId = rs.getInt("Division_ID");
+                FirstLevelDivision divisionToSet = null;
+                for (FirstLevelDivision division:
+                     FirstLevelDivisionDAO.getAllDivisions()) {
+                    if (divisionId == division.getDivisionId()) {
+                        divisionToSet = division;
+                        break;
+                    }
                 }
+                // Set values to new Customer object
+                customerList.add(new Customer(
+                        rs.getInt("Customer_ID"),
+                        rs.getString("Customer_Name"),
+                        rs.getString("Address"),
+                        rs.getString("Postal_Code"),
+                        rs.getString("Phone"),
+                        divisionToSet));
             }
-            // Set values to new Customer object
-            customerList.add(new Customer(
-                    rs.getInt("Customer_ID"),
-                    rs.getString("Customer_Name"),
-                    rs.getString("Address"),
-                    rs.getString("Postal_Code"),
-                    rs.getString("Phone"),
-                    divisionToSet));
+            System.out.println("Retrieved all customers from database.");
+        } catch (SQLException sqlException) {
+            ScreenUtility.alert("Error when retrieving all Customers!\nMessage: " +
+                    sqlException.getMessage());
         }
         return customerList;
     }

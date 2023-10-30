@@ -37,12 +37,27 @@ public abstract class ScreenUtility {
 
         stage.show();
     }
+
     public static void changeStageScene(ActionEvent actionEvent, SceneType scene) throws IOException {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         changeStageScene(stage, scene);
     }
-    public static void alert(String alertMessage) {
-        Alert alert = new Alert(AlertType.ERROR, alertMessage);
+
+    private static void alert(AlertType type, String message) {
+        Alert alert = new Alert(type, message);
+        System.out.println(type + " Alert" + ": " + message);
         alert.showAndWait();
+    }
+
+    public static void alert(String alertMessage) {
+        alert(AlertType.ERROR, alertMessage);
+    }
+
+    public static void showInfo(String informationMessage) {
+        alert(AlertType.INFORMATION, informationMessage);
+    }
+
+    public static void showWarning(String warningMessage) {
+        alert(AlertType.WARNING, warningMessage);
     }
 }

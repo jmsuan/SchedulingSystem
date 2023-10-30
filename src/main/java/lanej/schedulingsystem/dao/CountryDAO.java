@@ -11,7 +11,7 @@ import java.util.List;
 
 public abstract class CountryDAO {
     private static List<Country> allCountries = null;
-    private static Boolean initialized = false;
+    private static boolean initialized = false;
     public static List<Country> getAllCountries() {
         // List of Countries should not change during program execution,
         // so I will only retrieve this once.
@@ -26,13 +26,13 @@ public abstract class CountryDAO {
                             rs.getString("Country")
                     ));
                 }
+                System.out.println("Retrieved all countries from database.");
             } catch (SQLException sqlException) {
                 ScreenUtility.alert("Error when getting all the Countries!\nMessage: " +
                         sqlException.getMessage());
             } finally {
                 allCountries = countryList;
                 initialized = true;
-                System.out.println("All countries retrieved.");
             }
         }
         return allCountries;
