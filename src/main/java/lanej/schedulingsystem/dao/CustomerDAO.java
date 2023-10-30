@@ -1,5 +1,7 @@
 package lanej.schedulingsystem.dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lanej.schedulingsystem.helper.ScreenUtility;
 import lanej.schedulingsystem.model.Customer;
 import lanej.schedulingsystem.model.FirstLevelDivision;
@@ -7,7 +9,7 @@ import lanej.schedulingsystem.model.FirstLevelDivision;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.LinkedList;
 
 public abstract class CustomerDAO {
 
@@ -71,10 +73,10 @@ public abstract class CustomerDAO {
         return successful;
     }
 
-    public static List<Customer> getAllCustomers() {
+    public static ObservableList<Customer> getAllCustomers() {
         // List of Customers may change during program execution,
         // so I will retrieve a fresh list each time this is called.
-        List<Customer> customerList = null;
+        ObservableList<Customer> customerList = FXCollections.observableList(new LinkedList<>());
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement("SELECT * FROM customers");
             ResultSet rs = query.executeQuery();
@@ -82,8 +84,7 @@ public abstract class CustomerDAO {
                 // Find stored division that matches customer
                 int divisionId = rs.getInt("Division_ID");
                 FirstLevelDivision divisionToSet = null;
-                for (FirstLevelDivision division:
-                     FirstLevelDivisionDAO.getAllDivisions()) {
+                for (FirstLevelDivision division: FirstLevelDivisionDAO.getAllDivisions()) {
                     if (divisionId == division.getDivisionId()) {
                         divisionToSet = division;
                         break;

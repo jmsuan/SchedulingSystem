@@ -7,16 +7,17 @@ import lanej.schedulingsystem.model.FirstLevelDivision;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CountryDAO {
-    private static List<Country> allCountries = null;
+    private static List<Country> allCountries = new ArrayList<>();
     private static boolean initialized = false;
     public static List<Country> getAllCountries() {
         // List of Countries should not change during program execution,
         // so I will only retrieve this once.
         if (!initialized) {
-            List<Country> countryList = null;
+            List<Country> countryList = new ArrayList<>();
             try {
                 PreparedStatement query = JDBC.getConnection().prepareStatement("SELECT * FROM countries");
                 ResultSet rs = query.executeQuery();

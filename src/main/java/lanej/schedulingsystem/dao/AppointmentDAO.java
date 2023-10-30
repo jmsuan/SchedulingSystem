@@ -1,5 +1,7 @@
 package lanej.schedulingsystem.dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lanej.schedulingsystem.helper.ScreenUtility;
 import lanej.schedulingsystem.model.Appointment;
 import lanej.schedulingsystem.model.Contact;
@@ -7,6 +9,7 @@ import lanej.schedulingsystem.model.Customer;
 import lanej.schedulingsystem.model.User;
 
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AppointmentDAO {
@@ -86,17 +89,16 @@ public abstract class AppointmentDAO {
         return successful;
     }
 
-    public static List<Appointment> getAllAppointments() {
+    public static ObservableList<Appointment> getAllAppointments() {
         // List of Appointments may change during program execution,
         // so I will retrieve a fresh list each time this is called.
-        List<Appointment> appointmentList = null;
+        ObservableList<Appointment> appointmentList = FXCollections.observableList(new LinkedList<>());
         List<Customer> fetchedCustomerList = CustomerDAO.getAllCustomers();
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement("SELECT * FROM appointments");
             ResultSet rs = query.executeQuery();
             while(rs.next()) {
                 // Find appropriate Customer
-                assert fetchedCustomerList != null;
                 int appointmentCustomerId = rs.getInt("Customer_ID");
                 Customer customerForAppointment = null;
                 for (Customer customer:

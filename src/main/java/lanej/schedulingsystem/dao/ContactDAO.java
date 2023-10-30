@@ -6,16 +6,17 @@ import lanej.schedulingsystem.model.Contact;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ContactDAO {
-    private static List<Contact> allContacts = null;
+    private static List<Contact> allContacts = new ArrayList<>();
     private static boolean initialized = false;
     public static List<Contact> getAllContacts() {
         // List of Contacts should not change during program execution,
         // so I will only retrieve this once.
         if (!initialized) {
-            List<Contact> contactList = null;
+            List<Contact> contactList = new ArrayList<>();
             try {
                 PreparedStatement query = JDBC.getConnection().prepareStatement("SELECT * FROM contacts");
                 ResultSet rs = query.executeQuery();
