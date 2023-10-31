@@ -2,13 +2,11 @@ package lanej.schedulingsystem.helper;
 
 import lanej.schedulingsystem.dao.AppointmentDAO;
 import lanej.schedulingsystem.dao.FirstLevelDivisionDAO;
-import lanej.schedulingsystem.model.Appointment;
-import lanej.schedulingsystem.model.Country;
-import lanej.schedulingsystem.model.Customer;
-import lanej.schedulingsystem.model.FirstLevelDivision;
+import lanej.schedulingsystem.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class ConverterUtility {
     public static List<FirstLevelDivision> getAllDivisionsOfCountry(Country country) {
@@ -31,5 +29,16 @@ public abstract class ConverterUtility {
             }
         }
         return appointmentsWithCustomer;
+    }
+
+    public static List<Appointment> getAllAppointmentsOfUser(User user) {
+        List<Appointment> appointmentsWithUser = new ArrayList<>();
+        List<Appointment> allAppointments = AppointmentDAO.getAllAppointments();
+        for (Appointment appointment : allAppointments) {
+            if (Objects.equals(appointment.getUser().userId(), user.userId())) {
+                appointmentsWithUser.add(appointment);
+            }
+        }
+        return appointmentsWithUser;
     }
 }

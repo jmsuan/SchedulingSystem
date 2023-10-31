@@ -13,17 +13,18 @@ import lanej.schedulingsystem.dao.AppointmentDAO;
 import lanej.schedulingsystem.dao.CustomerDAO;
 import lanej.schedulingsystem.helper.ConverterUtility;
 import lanej.schedulingsystem.helper.ScreenUtility;
+import lanej.schedulingsystem.helper.TimeUtility;
 import lanej.schedulingsystem.model.Appointment;
 import lanej.schedulingsystem.model.Customer;
 import lanej.schedulingsystem.model.TableSearchable;
 import lanej.schedulingsystem.model.User;
 
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -46,9 +47,15 @@ public class CustomersAppointments implements Initializable {
     public TableColumn<Appointment, User> appointmentUserColumn;
     public TextField appointmentSearchField;
     public ToggleGroup scheduleRadioGroup;
+    public FilteredList<Appointment> appointmentFilteredList;
+    public RadioButton allToggle;
+    public RadioButton weekToggle;
+    public RadioButton monthToggle;
+    public Label noticeLabel;
 
     private ChangeListener<Object> createTableSearchListener(FilteredList<? extends TableSearchable> filteredList) {
         return (observableValue, oldValue, newValue) -> {
+            scheduleRadioGroup.selectToggle(allToggle);
             String searchText = newValue.toString().toLowerCase();
 
             // Checks if each item matches condition
@@ -195,7 +202,7 @@ public class CustomersAppointments implements Initializable {
         // Finish populating Appointment TableView
         ObservableList<Appointment> appointments = AppointmentDAO.getAllAppointments();
         appointments.sort(Comparator.comparingInt(Appointment::getAppointmentId));
-        FilteredList<Appointment> appointmentFilteredList = new FilteredList<>(appointments);
+        appointmentFilteredList = new FilteredList<>(appointments);
         appointmentTable.setItems(appointmentFilteredList);
         appointmentTable.getSortOrder().add(appointmentIdColumn);
         appointmentTable.sort();
@@ -203,5 +210,53 @@ public class CustomersAppointments implements Initializable {
         // Filter tables by search criteria
         customerSearchField.textProperty().addListener(createTableSearchListener(customerFilteredList));
         appointmentSearchField.textProperty().addListener(createTableSearchListener(appointmentFilteredList));
+
+        // Test to see if there are any appointments coming up soon for the user
+        List<Appointment> userAppointments = ConverterUtility.getAllAppointmentsOfUser(
+                SchedulingApplication.loggedInUser);
+        LocalDateTime nowPlus15 = LocalDateTime.now().plusMinutes(15);
+        for (Appointment appointment : userAppointments) {
+            if (TimeUtility.detectOverlap(
+                    LocalDateTime.now(), nowPlus15,
+                    appointment.getStart(), appointment.getEnd())) {
+                ScreenUtility.showInformation("You have an appointment soon! Here are the details:\n" +
+                        "\n" +
+                        "Appointment ID: " + appointment.getAppointmentId() + "\n" +
+                        "Date/Start Time: " + timeFormat.format(appointment.getStart()) + " " +
+                        ZoneId.systemDefault().getDisplayName(TextStyle.SHORT, Locale.getDefault()));
+                noticeLabel.setText("");
+                break;
+            }
+        }
+
+    }
+
+    public void weekFilterSelected() {
+        appointmentSearchField.setText("");
+        appointmentFilteredList.setPredicate(item -> {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime startOfWeek = LocalDateTime.of(
+                    LocalDate.from(now.with(DayOfWeek.SUNDAY)), LocalTime.of(0,0)).minusWeeks(1);
+            LocalDateTime endOfWeek = startOfWeek.plusWeeks(1);
+            return TimeUtility.detectOverlap(startOfWeek, endOfWeek, item.getStart(), item.getEnd());
+        });
+        weekToggle.setSelected(true);
+    }
+
+    public void monthFilterSelected() {
+        appointmentSearchField.setText("");
+        appointmentFilteredList.setPredicate(item -> {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime startOfMonth = now.withDayOfMonth(1);
+            LocalDateTime endOfMonth = now.withDayOfMonth(now.toLocalDate().lengthOfMonth()).plusDays(1);
+
+            return TimeUtility.detectOverlap(startOfMonth, endOfMonth, item.getStart(), item.getEnd());
+        });
+        monthToggle.setSelected(true);
+    }
+
+    public void allFilterSelected() {
+        appointmentFilteredList.setPredicate(null);
+        allToggle.setSelected(true);
     }
 }

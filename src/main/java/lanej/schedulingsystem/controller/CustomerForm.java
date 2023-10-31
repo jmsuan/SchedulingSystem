@@ -30,6 +30,12 @@ public class CustomerForm implements Initializable {
     public Label titleLabel;
 
     public void submitButtonPressed(ActionEvent actionEvent) {
+        if (nameField.getText().isBlank() || addressField.getText().isBlank() || postalField.getText().isBlank() ||
+            phoneField.getText().isBlank() || divisionBox.getValue() == null) {
+            ScreenUtility.alert(
+                    "One or more fields are empty. Please fill in all information before proceeding.");
+            return;
+        }
         if (customerToModify != null) { // Customer already exists
             customerToModify.setCustomerName(nameField.getText());
             customerToModify.setAddress(addressField.getText());
@@ -66,12 +72,13 @@ public class CustomerForm implements Initializable {
             divisionBox.setValue(customerToModify.getDivision());
             postalField.setText(customerToModify.getPostalCode());
             phoneField.setText(customerToModify.getPhone());
+            populateDivisions();
         } else {
             idField.setText("(Automatically Generated)");
             titleLabel.setText("Add Customer");
+            divisionBox.getItems().addAll(FirstLevelDivisionDAO.getAllDivisions());
         }
         countryBox.getItems().addAll(CountryDAO.getAllCountries());
-        divisionBox.getItems().addAll(FirstLevelDivisionDAO.getAllDivisions());
     }
 
     public void populateDivisions() { // Called when countryBox has an action

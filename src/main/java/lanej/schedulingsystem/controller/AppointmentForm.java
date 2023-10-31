@@ -8,6 +8,7 @@ import lanej.schedulingsystem.dao.AppointmentDAO;
 import lanej.schedulingsystem.dao.ContactDAO;
 import lanej.schedulingsystem.dao.CustomerDAO;
 import lanej.schedulingsystem.dao.UserDAO;
+import lanej.schedulingsystem.helper.ConverterUtility;
 import lanej.schedulingsystem.helper.TimeUtility;
 import lanej.schedulingsystem.helper.ScreenUtility;
 import lanej.schedulingsystem.model.Appointment;
@@ -49,11 +50,48 @@ public class AppointmentForm implements Initializable {
     }
 
     public void submitButtonPressed(ActionEvent actionEvent) {
-        // TODO : validate inputs
+        // Check for missing fields
+        if (titleField.getText().isBlank() || descriptionArea.getText().isBlank() ||
+                locationField.getText().isBlank() || typeField.getText().isBlank() ||
+                contactBox.getValue() == null || userBox.getValue() == null || customerBox.getValue() == null ||
+                startHour.getValue() == null || startMinute.getValue() == null || startDate.getValue() == null ||
+                endHour.getValue() == null || endMinute.getValue() == null || endDate.getValue() == null) {
+            ScreenUtility.alert(
+                    "One or more fields are empty. Please fill in all information before proceeding.");
+            return;
+        }
+
+        // Check if time is within working hours
         LocalDateTime start = LocalDateTime.of(startDate.getValue(), TimeUtility.createLocalTime(
                 startHour.getValue(), startMinute.getValue(), startTimePeriod.getValue()));
         LocalDateTime end = LocalDateTime.of(endDate.getValue(), TimeUtility.createLocalTime(
                 endHour.getValue(), endMinute.getValue(), endTimePeriod.getValue()));
+        if (start.isAfter(end)) {
+            ScreenUtility.alert("The chosen appointment time is invalid! The start time must be before " +
+                    "the end time. Please try again.");
+            return;
+        }
+        if (!TimeUtility.detectIfWithinWorkHours(start, end)) {
+            ScreenUtility.alert("The chosen appointment time is outside of work hours! Please correct the " +
+                    "time or reschedule the appointment.");
+            return;
+        }
+
+        // Check if any appointments for the customer would overlap
+        for (Appointment appointment : ConverterUtility.getAllAppointmentsOfCustomer(customerBox.getValue())) {
+            if (appointmentToModify != null) {
+                if (appointment.getAppointmentId() == appointmentToModify.getAppointmentId()) {
+                    continue;
+                }
+            }
+            if (TimeUtility.detectOverlap(appointment.getStart(), appointment.getEnd(), start, end)) {
+                ScreenUtility.alert("This customer has an appointment overlapping the specified time " +
+                        "window. Please correct the customer selection, time or reschedule the appointment.");
+                return;
+            }
+        }
+
+        // Add or update appointment because input passed all checks
         if (appointmentToModify != null) { // Appointment already exists
             appointmentToModify.setTitle(titleField.getText());
             appointmentToModify.setDescription(descriptionArea.getText());

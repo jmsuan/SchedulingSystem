@@ -172,13 +172,12 @@
                 </HBox.margin>
                 <Label text="View Appointments By:" />
                 <HBox alignment="CENTER" prefWidth="200.0" spacing="10.0">
-                    <RadioButton mnemonicParsing="false" text="Month">
-                        <toggleGroup>
+                    <RadioButton fx:id="weekToggle" mnemonicParsing="false" onAction="#weekFilterSelected" text="Week">
+                  <toggleGroup>
                             <ToggleGroup fx:id="scheduleRadioGroup" />
-                        </toggleGroup>
-                    </RadioButton>
-                    <RadioButton mnemonicParsing="false" text="Week" toggleGroup="$scheduleRadioGroup" />
-                    <RadioButton mnemonicParsing="false" text="All" toggleGroup="$scheduleRadioGroup" />
+                  </toggleGroup></RadioButton>
+                    <RadioButton fx:id="monthToggle" mnemonicParsing="false" onAction="#monthFilterSelected" text="Month" toggleGroup="$scheduleRadioGroup" />
+                    <RadioButton fx:id="allToggle" mnemonicParsing="false" onAction="#allFilterSelected" selected="true" text="All" toggleGroup="$scheduleRadioGroup" />
                 </HBox>
             </VBox>
             <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#addAppointmentButton" prefWidth="66.0" text="Add">
@@ -227,4 +226,5 @@
             <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
         </padding>
     </Button>
+   <Label fx:id="noticeLabel" alignment="CENTER" text="You have no upcoming appointments." GridPane.columnSpan="2" GridPane.rowIndex="2" />
 </GridPane>

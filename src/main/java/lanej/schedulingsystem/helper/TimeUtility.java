@@ -1,6 +1,13 @@
 package lanej.schedulingsystem.helper;
 
+import lanej.schedulingsystem.model.Appointment;
+
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.temporal.TemporalField;
 
 public abstract class TimeUtility {
     public static LocalTime createLocalTime(int hour, int minute, String timePeriod) {
@@ -31,5 +38,33 @@ public abstract class TimeUtility {
 
     public static String amOrPm(LocalTime time) {
         return (time.getHour() >= 12) ? "PM" : "AM";
+    }
+
+    public static boolean detectOverlap(
+            LocalDateTime dateTimeOneStart,
+            LocalDateTime dateTimeOneEnd,
+            LocalDateTime dateTimeTwoStart,
+            LocalDateTime dateTimeTwoEnd) {
+        return dateTimeOneStart.isBefore(dateTimeTwoEnd) && dateTimeOneEnd.isAfter(dateTimeTwoStart);
+    }
+
+    public static boolean detectOverlap (Appointment appointment1, Appointment appointment2) {
+        return detectOverlap(
+                appointment1.getStart(), appointment1.getEnd(),
+                appointment2.getStart(), appointment2.getEnd());
+    }
+
+    public static boolean detectIfWithinWorkHours(LocalDateTime start, LocalDateTime end) {
+        ZoneId localZone = ZoneId.systemDefault();
+        ZoneId etZone = ZoneId.of("America/New_York");
+
+        ZonedDateTime startInEt = start.atZone(localZone).withZoneSameInstant(etZone);
+        ZonedDateTime endInEt = end.atZone(localZone).withZoneSameInstant(etZone);
+
+        return  startInEt.isAfter(startInEt.withHour(7).withMinute(59)) &&
+                startInEt.isBefore(startInEt.withHour(22).withMinute(1)) &&
+                endInEt.isAfter(startInEt.withHour(7).withMinute(59)) &&
+                endInEt.isBefore(startInEt.withHour(22).withMinute(1)) &&
+                startInEt.isBefore(endInEt);
     }
 }

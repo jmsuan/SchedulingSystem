@@ -68,7 +68,7 @@
                     <Insets top="5.0" />
                 </VBox.margin>
             </Label>
-            <DatePicker fx:id="endDate" prefWidth="300.0" />
+            <DatePicker fx:id="endDate" disable="true" prefWidth="300.0" />
             <HBox spacing="5.0">
                 <Spinner fx:id="endHour" />
                 <Label text=":">
