@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import lanej.schedulingsystem.SchedulingApplication;
 import lanej.schedulingsystem.dao.AppointmentDAO;
 import lanej.schedulingsystem.dao.CustomerDAO;
@@ -19,7 +20,11 @@ import lanej.schedulingsystem.model.User;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class CustomersAppointments implements Initializable {
@@ -140,7 +145,6 @@ public class CustomersAppointments implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         // Populate Customer TableView
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -152,8 +156,7 @@ public class CustomersAppointments implements Initializable {
         customerTable.getSortOrder().add(customerIdColumn);
         customerTable.sort();
 
-        // Populate Appointment TableView
-        // TODO : Fix the timestamp display
+        // Start populating Appointment TableView
         appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
         appointmentDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -164,6 +167,30 @@ public class CustomersAppointments implements Initializable {
         appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("End"));
         appointmentCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("Customer"));
         appointmentUserColumn.setCellValueFactory(new PropertyValueFactory<>("User"));
+
+        // Set format for start and end times
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        // Cell factory input lambda
+        Callback<TableColumn<Appointment, LocalDateTime>, TableCell<Appointment, LocalDateTime>> timeImplementation =
+                column -> new TableCell<>() {
+                    @Override
+                    protected void updateItem(LocalDateTime date, boolean empty) {
+                        super.updateItem(date, empty);
+                        if (empty || date == null) {
+                            setText(null);
+                        } else {
+                            setText(timeFormat.format(date) + " " + ZoneId.systemDefault().getDisplayName(
+                                    TextStyle.SHORT,
+                                    Locale.getDefault()));
+                        }
+                    }
+                };
+
+        // Set start and end time formatting
+        appointmentStartColumn.setCellFactory(timeImplementation);
+        appointmentEndColumn.setCellFactory(timeImplementation);
+
+        // Finish populating Appointment TableView
         ObservableList<Appointment> appointments = AppointmentDAO.getAllAppointments();
         appointments.sort(Comparator.comparingInt(Appointment::getAppointmentId));
         FilteredList<Appointment> appointmentFilteredList = new FilteredList<>(appointments);
