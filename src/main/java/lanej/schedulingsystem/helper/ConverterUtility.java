@@ -26,7 +26,7 @@ public abstract class ConverterUtility {
         List<Appointment> appointmentsWithCustomer = new ArrayList<>();
         List<Appointment> allAppointments = AppointmentDAO.getAllAppointments();
         for (Appointment appointment : allAppointments) {
-            if (appointment.getCustomer().equals(customer)) {
+            if (appointment.getCustomer().getCustomerId() == customer.getCustomerId()) {
                 appointmentsWithCustomer.add(appointment);
             }
         }

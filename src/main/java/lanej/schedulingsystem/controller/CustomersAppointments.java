@@ -95,7 +95,7 @@ public class CustomersAppointments implements Initializable {
                 }
                 CustomerDAO.delete(selectedCustomer);
                 ScreenUtility.showInformation(
-                        "Customer and all associated appointments have been deleted.");
+                        "Customer and any associated appointments have been deleted.");
                 // Refresh tables
                 ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
             }
@@ -119,12 +119,14 @@ public class CustomersAppointments implements Initializable {
     }
 
     public void deleteAppointmentButton(ActionEvent actionEvent) {
-        // TODO : write out the info that's needed in the alerts
         if (!appointmentTable.getSelectionModel().isEmpty()) {
             if (ScreenUtility.showConfirmation("Are you sure you want to delete this appointment?")) {
                 Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
                 AppointmentDAO.delete(selectedAppointment);
-                ScreenUtility.showInformation("Appointment successfully deleted.");
+                ScreenUtility.showInformation(
+                        "Appointment with ID " + selectedAppointment.getAppointmentId() +
+                                " and type \"" + selectedAppointment.getType() +
+                                "\" successfully deleted.");
                 // Refresh tables
                 ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
             }

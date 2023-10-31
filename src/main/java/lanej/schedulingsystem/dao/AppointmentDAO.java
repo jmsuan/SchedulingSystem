@@ -83,7 +83,7 @@ public abstract class AppointmentDAO {
             PreparedStatement query = JDBC.getConnection().prepareStatement(
                     "DELETE FROM appointments WHERE Appointment_ID = ?");
             query.setInt(1, appointment.getAppointmentId());
-            successful = query.executeUpdate() > 0;
+            successful = query.execute();
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when deleting appointment!\nMessage: " + sqlException.getMessage());
         }
