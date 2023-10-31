@@ -44,9 +44,13 @@ public abstract class ScreenUtility {
         stage.show();
     }
 
-    public static void changeStageScene(ActionEvent actionEvent, SceneType scene) throws IOException {
+    public static void changeStageScene(ActionEvent actionEvent, SceneType scene) {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        changeStageScene(stage, scene);
+        try {
+            changeStageScene(stage, scene);
+        } catch (IOException e) {
+            alert("Error when changing stage to " + scene + " scene!\nMessage: " + e.getMessage());
+        }
     }
 
     private static Boolean alert(AlertType type, String message) {

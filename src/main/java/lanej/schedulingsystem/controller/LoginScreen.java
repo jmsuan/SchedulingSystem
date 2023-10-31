@@ -47,7 +47,7 @@ public class LoginScreen implements Initializable {
         passwordField.setText("");
     }
 
-    public void attemptLogin(ActionEvent actionEvent) throws IOException {
+    public void attemptLogin(ActionEvent actionEvent) {
         if (usernameField.getText().isBlank() || passwordField.getText().isBlank()) {
             ScreenUtility.alert(langBundle.getString("loginScreenAlertMissingCredentials"));
             return;

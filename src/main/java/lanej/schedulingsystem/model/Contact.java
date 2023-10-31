@@ -29,7 +29,6 @@ public class Contact {
     }
     @Override
     public String toString() {
-        return ((Integer)contactId).toString();
-        //return "Name: " + contactName + ", Email: " + email;
+        return contactName;
     }
 }

@@ -3,11 +3,13 @@ package lanej.schedulingsystem.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import lanej.schedulingsystem.model.Appointment;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AppointmentForm implements Initializable {
+    public static Appointment appointmentToModify = null;
     public Label titleLabel;
     public TextField idField;
     public TextField titleField;

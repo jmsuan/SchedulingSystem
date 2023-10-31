@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lanej.schedulingsystem.SchedulingApplication;
 import lanej.schedulingsystem.dao.AppointmentDAO;
@@ -20,7 +17,6 @@ import lanej.schedulingsystem.model.Customer;
 import lanej.schedulingsystem.model.TableSearchable;
 import lanej.schedulingsystem.model.User;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -68,12 +64,12 @@ public class CustomersAppointments implements Initializable {
         };
     }
 
-    public void addCustomerButton(ActionEvent actionEvent) throws IOException {
+    public void addCustomerButton(ActionEvent actionEvent) {
         CustomerForm.customerToModify = null;
         ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);
     }
 
-    public void updateCustomerButton(ActionEvent actionEvent) throws IOException {
+    public void updateCustomerButton(ActionEvent actionEvent) {
         if (!customerTable.getSelectionModel().isEmpty()) {
             CustomerForm.customerToModify = customerTable.getSelectionModel().getSelectedItem();
             ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);
@@ -82,7 +78,7 @@ public class CustomersAppointments implements Initializable {
         }
     }
 
-    public void deleteCustomerButton(ActionEvent actionEvent) throws IOException {
+    public void deleteCustomerButton(ActionEvent actionEvent) {
         if (!customerTable.getSelectionModel().isEmpty()) {
             if (ScreenUtility.showConfirmation(
                     "Are you sure you want to delete this customer?\n" +
@@ -92,7 +88,7 @@ public class CustomersAppointments implements Initializable {
                 for (Appointment appointment : ConverterUtility.getAllAppointmentsOfCustomer(selectedCustomer)) {
                     AppointmentDAO.delete(appointment);
                 }
-                CustomerDAO.delete(customerTable.getSelectionModel().getSelectedItem());
+                CustomerDAO.delete(selectedCustomer);
                 ScreenUtility.showInformation(
                         "Customer and all associated appointments have been deleted.");
                 // Refresh tables
@@ -104,15 +100,35 @@ public class CustomersAppointments implements Initializable {
     }
 
     public void addAppointmentButton(ActionEvent actionEvent) {
+        AppointmentForm.appointmentToModify = null;
+        ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);
     }
 
     public void updateAppointmentButton(ActionEvent actionEvent) {
+        if (!appointmentTable.getSelectionModel().isEmpty()) {
+            AppointmentForm.appointmentToModify = appointmentTable.getSelectionModel().getSelectedItem();
+            ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);
+        } else {
+            ScreenUtility.showWarning("You must select an appointment from the table.");
+        }
     }
 
     public void deleteAppointmentButton(ActionEvent actionEvent) {
+        // TODO : write out the info that's needed in the alerts
+        if (!appointmentTable.getSelectionModel().isEmpty()) {
+            if (ScreenUtility.showConfirmation("Are you sure you want to delete this appointment?")) {
+                Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
+                AppointmentDAO.delete(selectedAppointment);
+                ScreenUtility.showInformation("Appointment successfully deleted.");
+                // Refresh tables
+                ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
+            }
+        } else {
+            ScreenUtility.showWarning("You must select an appointment from the table.");
+        }
     }
 
-    public void logoutButton(ActionEvent actionEvent) throws IOException {
+    public void logoutButton(ActionEvent actionEvent) {
         if (ScreenUtility.showConfirmation("Are you sure you want to log out?")) {
             ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.loginScene);
         }
@@ -124,6 +140,7 @@ public class CustomersAppointments implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         // Populate Customer TableView
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -136,6 +153,7 @@ public class CustomersAppointments implements Initializable {
         customerTable.sort();
 
         // Populate Appointment TableView
+        // TODO : Fix the timestamp display
         appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
         appointmentDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));

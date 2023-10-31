@@ -15,7 +15,6 @@ import lanej.schedulingsystem.model.Country;
 import lanej.schedulingsystem.model.Customer;
 import lanej.schedulingsystem.model.FirstLevelDivision;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -30,7 +29,7 @@ public class CustomerForm implements Initializable {
     public TextField phoneField;
     public Label titleLabel;
 
-    public void submitButtonPressed(ActionEvent actionEvent) throws IOException {
+    public void submitButtonPressed(ActionEvent actionEvent) {
         if (customerToModify != null) { // Customer already exists
             customerToModify.setCustomerName(nameField.getText());
             customerToModify.setAddress(addressField.getText());
@@ -80,7 +79,7 @@ public class CustomerForm implements Initializable {
         divisionBox.getItems().addAll(ConverterUtility.getAllDivisionsOfCountry(countryBox.getValue()));
     }
 
-    public void cancelButtonPressed(ActionEvent actionEvent) throws IOException {
+    public void cancelButtonPressed(ActionEvent actionEvent) {
         if (ScreenUtility.showConfirmation("Are you sure you want to cancel?\n" +
                 "All new information entered in the form will be lost.")) {
             ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
