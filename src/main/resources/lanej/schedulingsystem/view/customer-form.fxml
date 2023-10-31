@@ -17,50 +17,52 @@
       </Label>
    </VBox>
    <VBox maxWidth="-Infinity" minHeight="-Infinity" spacing="5.0">
-      <children>
-         <Label text="Customer ID:" />
-         <TextField fx:id="idField" disable="true" editable="false" focusTraversable="false" maxWidth="200.0" minWidth="200.0" text="(Automatically Generated)" />
-         <Label text="Customer Name:">
-            <VBox.margin>
-               <Insets top="5.0" />
-            </VBox.margin>
-         </Label>
-         <TextField fx:id="nameField" maxWidth="200.0" minWidth="200.0" />
-         <Label text="Address:">
-            <VBox.margin>
-               <Insets top="5.0" />
-            </VBox.margin>
-         </Label>
-         <TextField fx:id="addressField" maxWidth="200.0" minWidth="200.0" />
-         <Label text="Country:">
-            <VBox.margin>
-               <Insets top="5.0" />
-            </VBox.margin>
-         </Label>
-         <ComboBox fx:id="countryBox" minWidth="-Infinity" onAction="#populateDivisions" prefWidth="200.0" />
-         <Label text="First-Level Division:">
-            <VBox.margin>
-               <Insets top="5.0" />
-            </VBox.margin>
-         </Label>
-         <ComboBox fx:id="divisionBox" minWidth="-Infinity" prefWidth="200.0" />
-         <Label text="Postal Code:">
-            <VBox.margin>
-               <Insets top="5.0" />
-            </VBox.margin>
-         </Label>
-         <TextField fx:id="postalField" maxWidth="200.0" minWidth="200.0" />
-         <Label text="Phone Number:">
-            <VBox.margin>
-               <Insets top="5.0" />
-            </VBox.margin>
-         </Label>
-         <TextField fx:id="phoneField" maxWidth="200.0" minWidth="200.0" />
-         <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="40.0" prefWidth="200.0" text="Submit">
-            <VBox.margin>
-               <Insets top="20.0" />
-            </VBox.margin></Button>
-         <Button layoutX="10.0" layoutY="424.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelButtonPressed" prefHeight="40.0" prefWidth="200.0" text="Cancel" />
-      </children>
+      <Label text="Customer ID:"/>
+      <TextField fx:id="idField" disable="true" editable="false" focusTraversable="false" maxWidth="200.0"
+                 minWidth="200.0" text="(Automatically Generated)"/>
+      <Label text="Customer Name:">
+         <VBox.margin>
+            <Insets top="5.0"/>
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="nameField" maxWidth="200.0" minWidth="200.0"/>
+      <Label text="Address:">
+         <VBox.margin>
+            <Insets top="5.0"/>
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="addressField" maxWidth="200.0" minWidth="200.0"/>
+      <Label text="Country:">
+         <VBox.margin>
+            <Insets top="5.0"/>
+         </VBox.margin>
+      </Label>
+      <ComboBox fx:id="countryBox" minWidth="-Infinity" onAction="#populateDivisions" prefWidth="200.0"/>
+      <Label text="First-Level Division:">
+         <VBox.margin>
+            <Insets top="5.0"/>
+         </VBox.margin>
+      </Label>
+      <ComboBox fx:id="divisionBox" minWidth="-Infinity" prefWidth="200.0"/>
+      <Label text="Postal Code:">
+         <VBox.margin>
+            <Insets top="5.0"/>
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="postalField" maxWidth="200.0" minWidth="200.0"/>
+      <Label text="Phone Number:">
+         <VBox.margin>
+            <Insets top="5.0"/>
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="phoneField" maxWidth="200.0" minWidth="200.0"/>
+      <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="40.0"
+              prefWidth="200.0" text="Submit">
+         <VBox.margin>
+            <Insets top="20.0"/>
+         </VBox.margin>
+      </Button>
+      <Button layoutX="10.0" layoutY="424.0" minWidth="-Infinity" mnemonicParsing="false"
+              onAction="#cancelButtonPressed" prefHeight="40.0" prefWidth="200.0" text="Cancel"/>
    </VBox>
 </VBox>
