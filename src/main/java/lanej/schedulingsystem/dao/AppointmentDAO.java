@@ -69,6 +69,7 @@ public abstract class AppointmentDAO {
             query.setInt(7, appointmentToUpdate.getCustomer().getCustomerId());
             query.setInt(8, appointmentToUpdate.getUser().userId());
             query.setInt(9, appointmentToUpdate.getContact().getContactId());
+            query.setInt(10, appointmentToUpdate.getId());
             successful = query.executeUpdate() > 0;
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when updating appointment!\nMessage: " + sqlException.getMessage());

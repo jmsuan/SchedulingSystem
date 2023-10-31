@@ -132,14 +132,14 @@
          <TableView fx:id="appointmentTable" focusTraversable="false" GridPane.columnSpan="2" GridPane.rowIndex="1">
              <columns>
                  <TableColumn fx:id="appointmentIdColumn" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" text="ID" />
-                 <TableColumn fx:id="appointmentTitleColumn" maxWidth="-Infinity" minWidth="40.0" prefWidth="-1.0" text="Title" />
+                 <TableColumn fx:id="appointmentTitleColumn" minWidth="80.0" prefWidth="-1.0" text="Title" />
                  <TableColumn fx:id="appointmentDescriptionColumn" minWidth="80.0" prefWidth="-1.0" text="Description" />
                  <TableColumn fx:id="appointmentLocationColumn" minWidth="60.0" prefWidth="-1.0" text="Location" />
                  <TableColumn fx:id="appointmentContactColumn" minWidth="60.0" prefWidth="-1.0" text="Contact" />
                  <TableColumn fx:id="appointmentTypeColumn" minWidth="60.0" prefWidth="-1.0" text="Type" />
                  <TableColumn fx:id="appointmentStartColumn" minWidth="130.0" prefWidth="130.0" text="Start Date and Time" />
                  <TableColumn fx:id="appointmentEndColumn" minWidth="130.0" prefWidth="130.0" text="End Date and Time" />
-                 <TableColumn fx:id="appointmentCustomerColumn" minWidth="90.0" prefWidth="-1.0" text="Customer_ID" />
+                 <TableColumn fx:id="appointmentCustomerColumn" minWidth="90.0" prefWidth="-1.0" text="Customer" />
                  <TableColumn fx:id="appointmentUserColumn" minWidth="90.0" prefWidth="-1.0" text="User" />
              </columns>
          <GridPane.margin>
@@ -170,7 +170,7 @@
                 <HBox.margin>
                     <Insets bottom="10.0" top="10.0" />
                 </HBox.margin>
-                <Label text="View Schedules By:" />
+                <Label text="View Appointments By:" />
                 <HBox alignment="CENTER" prefWidth="200.0" spacing="10.0">
                     <RadioButton mnemonicParsing="false" text="Month">
                         <toggleGroup>

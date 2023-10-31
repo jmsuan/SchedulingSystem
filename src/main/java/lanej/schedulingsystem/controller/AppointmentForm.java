@@ -106,6 +106,7 @@ public class AppointmentForm implements Initializable {
         startMinute.getValueFactory().setWrapAround(true);
         startTimePeriod.getItems().add("AM");
         startTimePeriod.getItems().add("PM");
+        startTimePeriod.setValue("AM");
         endLabel.setText("End Date and Time (" + ZoneId.systemDefault().getDisplayName(TextStyle.SHORT,
                 Locale.getDefault()) + "):");
         endHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 10));
@@ -114,6 +115,7 @@ public class AppointmentForm implements Initializable {
         endMinute.getValueFactory().setWrapAround(true);
         endTimePeriod.getItems().add("AM");
         endTimePeriod.getItems().add("PM");
+        endTimePeriod.setValue("AM");
 
         // Populate ComboBoxes
         customerBox.getItems().addAll(CustomerDAO.getAllCustomers());
@@ -128,11 +130,13 @@ public class AppointmentForm implements Initializable {
             locationField.setText(appointmentToModify.getLocation());
             typeField.setText(appointmentToModify.getType());
             startDate.setValue(appointmentToModify.getStart().toLocalDate());
-            startHour.getValueFactory().setValue(appointmentToModify.getStart().getHour());
+            startHour.getValueFactory().setValue(TimeUtility.shortHour(appointmentToModify.getStart().toLocalTime()));
             startMinute.getValueFactory().setValue(appointmentToModify.getStart().getMinute());
+            startTimePeriod.setValue(TimeUtility.amOrPm(appointmentToModify.getStart().toLocalTime()));
             endDate.setValue(appointmentToModify.getEnd().toLocalDate());
-            endHour.getValueFactory().setValue(appointmentToModify.getEnd().getHour());
+            endHour.getValueFactory().setValue(TimeUtility.shortHour(appointmentToModify.getEnd().toLocalTime()));
             endMinute.getValueFactory().setValue(appointmentToModify.getEnd().getMinute());
+            endTimePeriod.setValue(TimeUtility.amOrPm(appointmentToModify.getEnd().toLocalTime()));
             customerBox.setValue(appointmentToModify.getCustomer());
             userBox.setValue(appointmentToModify.getUser());
             contactBox.setValue(appointmentToModify.getContact());

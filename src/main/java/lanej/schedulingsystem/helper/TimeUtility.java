@@ -18,4 +18,18 @@ public abstract class TimeUtility {
         }
         return LocalTime.of(hour, minute);
     }
+    public static int shortHour(LocalTime time) {
+        int hour = time.getHour();
+        if (hour == 0) {
+            return 12;
+        } else if (hour > 12) {
+            return hour - 12;
+        } else {
+            return hour;
+        }
+    }
+
+    public static String amOrPm(LocalTime time) {
+        return (time.getHour() >= 12) ? "PM" : "AM";
+    }
 }
