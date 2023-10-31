@@ -9,7 +9,6 @@ import lanej.schedulingsystem.helper.ScreenUtility;
 import lanej.schedulingsystem.model.User;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class SchedulingApplication extends Application {
@@ -29,7 +28,7 @@ public class SchedulingApplication extends Application {
             "Add/Modify Customer",
             "view/customer-form.fxml",
             340.0,
-            570.0);
+            630.0);
     public static User loggedInUser = null;
 
     @Override

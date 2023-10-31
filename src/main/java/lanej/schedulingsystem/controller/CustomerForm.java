@@ -76,7 +76,7 @@ public class CustomerForm implements Initializable {
 
     public void cancelButtonPressed(ActionEvent actionEvent) throws IOException {
         if (ScreenUtility.showConfirmation("Are you sure you want to cancel?\n" +
-                "All information entered in the form will be lost.")) {
+                "All new information entered in the form will be lost.")) {
             ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
             customerToModify = null;
         }
