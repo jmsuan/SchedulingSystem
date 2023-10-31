@@ -46,6 +46,8 @@ public abstract class ContactDAO {
                     "SELECT * FROM contacts WHERE Contact_ID = ?");
             query.setInt(1, contactId);
             ResultSet rs = query.executeQuery();
+            // Move past header to Contact records
+            rs.next();
             contact = new Contact(
                     rs.getInt("Contact_ID"),
                     rs.getString("Contact_Name"),

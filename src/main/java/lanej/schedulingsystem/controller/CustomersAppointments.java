@@ -11,36 +11,41 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lanej.schedulingsystem.SchedulingApplication;
+import lanej.schedulingsystem.dao.AppointmentDAO;
 import lanej.schedulingsystem.dao.CustomerDAO;
 import lanej.schedulingsystem.helper.ScreenUtility;
+import lanej.schedulingsystem.model.Appointment;
 import lanej.schedulingsystem.model.Customer;
 import lanej.schedulingsystem.model.TableSearchable;
+import lanej.schedulingsystem.model.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class CustomersAppointments implements Initializable {
     public TableView<Customer> customerTable;
     public TableColumn<Customer, Integer> customerIdColumn;
-    public TableColumn<Customer, Integer> customerNameColumn;
-    public TableColumn<Customer, Integer> customerDivisionColumn;
+    public TableColumn<Customer, String> customerNameColumn;
+    public TableColumn<Customer, String> customerDivisionColumn;
     public TextField customerSearchField;
-    public TableView appointmentTable;
-    public TableColumn appointmentIdColumn;
-    public TableColumn appointmentTitleColumn;
-    public TableColumn appointmentDescriptionColumn;
-    public TableColumn appointmentLocationColumn;
-    public TableColumn appointmentContactColumn;
-    public TableColumn appointmentTypeColumn;
-    public TableColumn appointmentStartColumn;
-    public TableColumn appointmentEndColumn;
-    public TableColumn appointmentCustomerColumn;
-    public TableColumn appointmentUserColumn;
+    public TableView<Appointment> appointmentTable;
+    public TableColumn<Appointment, Integer> appointmentIdColumn;
+    public TableColumn<Appointment, String> appointmentTitleColumn;
+    public TableColumn<Appointment, String> appointmentDescriptionColumn;
+    public TableColumn<Appointment, String> appointmentLocationColumn;
+    public TableColumn<Appointment, String> appointmentContactColumn;
+    public TableColumn<Appointment, String> appointmentTypeColumn;
+    public TableColumn<Appointment, LocalDateTime> appointmentStartColumn;
+    public TableColumn<Appointment, LocalDateTime> appointmentEndColumn;
+    public TableColumn<Appointment, Customer> appointmentCustomerColumn;
+    public TableColumn<Appointment, User> appointmentUserColumn;
     public TextField appointmentSearchField;
     public ToggleGroup scheduleRadioGroup;
     private FilteredList<Customer> customerFilteredList;
+    private FilteredList<Appointment> appointmentFilteredList;
 
     private ChangeListener<Object> createTableSearchListener(FilteredList<? extends TableSearchable> filteredList) {
         return (observableValue, oldValue, newValue) -> {
@@ -103,9 +108,26 @@ public class CustomersAppointments implements Initializable {
         customerTable.sort();
 
         // TODO: Populate Appointment TableView
+        appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        appointmentDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        appointmentLocationColumn.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        appointmentContactColumn.setCellValueFactory(new PropertyValueFactory<>("Contact"));
+        appointmentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("End"));
+        appointmentCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+        appointmentUserColumn.setCellValueFactory(new PropertyValueFactory<>("User"));
+        ObservableList<Appointment> appointments = AppointmentDAO.getAllAppointments();
+        appointments.sort(Comparator.comparingInt(Appointment::getAppointmentId));
+        appointmentFilteredList = new FilteredList<>(appointments);
+        appointmentTable.setItems(appointmentFilteredList);
+        appointmentTable.getSortOrder().add(appointmentIdColumn);
+        appointmentTable.sort();
 
         // Filter tables by search criteria
         customerSearchField.textProperty().addListener(createTableSearchListener(customerFilteredList));
+        appointmentSearchField.textProperty().addListener(createTableSearchListener(appointmentFilteredList));
 
     }
 }

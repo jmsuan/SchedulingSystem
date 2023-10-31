@@ -53,6 +53,8 @@ public abstract class UserDAO {
                     "SELECT * FROM users WHERE User_ID = ?");
             query.setInt(1, userId);
             ResultSet rs = query.executeQuery();
+            // Move past header to User records
+            rs.next();
             user = new User(
                     rs.getInt("User_ID"),
                     rs.getString("User_Name"),
