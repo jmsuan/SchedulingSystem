@@ -67,6 +67,7 @@ public class CustomersAppointments implements Initializable {
             }
         };
     }
+
     public void addCustomerButton(ActionEvent actionEvent) throws IOException {
         CustomerForm.customerToModify = null;
         ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);

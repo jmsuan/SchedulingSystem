@@ -3,6 +3,7 @@ package lanej.schedulingsystem.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lanej.schedulingsystem.SchedulingApplication;
 import lanej.schedulingsystem.dao.CountryDAO;
@@ -27,6 +28,7 @@ public class CustomerForm implements Initializable {
     public ComboBox<FirstLevelDivision> divisionBox;
     public TextField postalField;
     public TextField phoneField;
+    public Label titleLabel;
 
     public void submitButtonPressed(ActionEvent actionEvent) throws IOException {
         if (customerToModify != null) { // Customer already exists
@@ -57,6 +59,7 @@ public class CustomerForm implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (customerToModify != null) {
+            titleLabel.setText("Modify Customer");
             idField.setText(((Integer)customerToModify.getId()).toString());
             nameField.setText(customerToModify.getCustomerName());
             addressField.setText(customerToModify.getAddress());
@@ -64,6 +67,9 @@ public class CustomerForm implements Initializable {
             divisionBox.setValue(customerToModify.getDivision());
             postalField.setText(customerToModify.getPostalCode());
             phoneField.setText(customerToModify.getPhone());
+        } else {
+            idField.setText("(Automatically Generated)");
+            titleLabel.setText("Add Customer");
         }
         countryBox.getItems().addAll(CountryDAO.getAllCountries());
         divisionBox.getItems().addAll(FirstLevelDivisionDAO.getAllDivisions());

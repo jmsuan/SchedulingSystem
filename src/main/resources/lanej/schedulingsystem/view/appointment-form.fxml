@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lanej.schedulingsystem.controller.AppointmentForm">
+    <padding>
+        <Insets bottom="30.0" left="50.0" right="50.0" top="15.0"/>
+    </padding>
+    <Label fx:id="titleLabel" text="Add Appointment">
+        <font>
+            <Font name="System Bold" size="24.0"/>
+        </font>
+        <VBox.margin>
+        <Insets bottom="10.0"/>
+        </VBox.margin>
+    </Label>
+    <HBox alignment="CENTER" spacing="20.0">
+        <VBox maxWidth="-Infinity" minHeight="-Infinity" spacing="5.0">
+            <Label text="Appointment ID:"/>
+            <TextField fx:id="idField" disable="true" editable="false" focusTraversable="false" maxWidth="200.0"
+                       minWidth="300.0" text="(Automatically Generated)"/>
+            <Label text="Title:">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="titleField" maxWidth="200.0" minWidth="300.0"/>
+            <Label text="Description:">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <TextArea fx:id="descriptionArea" prefColumnCount="1" prefHeight="85.0" prefRowCount="1"/>
+            <Label text="Location:">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="locationField" layoutX="10.0" layoutY="146.0" maxWidth="200.0" minWidth="300.0"/>
+            <Label layoutX="10.0" layoutY="181.0" text="Type:">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="typeField" layoutX="10.0" layoutY="203.0" maxWidth="200.0" minWidth="300.0"/>
+        </VBox>
+        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+            <Label fx:id="startLabel" text="Start Date and Time:">
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </Label>
+            <DatePicker fx:id="startDate" onAction="#startDateSelected" prefWidth="300.0"/>
+            <HBox spacing="5.0">
+                <Spinner fx:id="startHour"/>
+                <Label text=":">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Label>
+                <Spinner fx:id="startMinute"/>
+                <ComboBox fx:id="startTimePeriod" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="65.0"
+                          promptText="AM"/>
+            </HBox>
+            <Label fx:id="endLabel" text="End Date and Time:">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <DatePicker fx:id="endDate" prefWidth="300.0"/>
+            <HBox spacing="5.0">
+                <Spinner fx:id="endHour"/>
+                <Label text=":">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Label>
+                <Spinner fx:id="endMinute"/>
+                <ComboBox fx:id="endTimePeriod" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="65.0"
+                          promptText="AM"/>
+            </HBox>
+            <Label text="Customer:">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <ComboBox fx:id="customerBox" minWidth="-Infinity" prefWidth="300.0"/>
+            <Label text="User:">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <ComboBox fx:id="userBox" minWidth="-Infinity" prefWidth="300.0"/>
+            <Label text="Contact:">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <ComboBox fx:id="contactBox" minWidth="-Infinity" prefWidth="300.0"/>
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER" spacing="20.0">
+        <VBox.margin>
+            <Insets top="20.0"/>
+        </VBox.margin>
+        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="40.0"
+                prefWidth="300.0" text="Submit"/>
+        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelButtonPressed" prefHeight="40.0"
+                prefWidth="300.0" text="Cancel"/>
+    </HBox>
+</VBox>
