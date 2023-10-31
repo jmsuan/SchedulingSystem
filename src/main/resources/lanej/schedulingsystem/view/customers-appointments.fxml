@@ -215,16 +215,27 @@
             </Button>
         </HBox>
     </GridPane>
-    <Button mnemonicParsing="false" onAction="#logoutButton" text="Log Out" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <HBox alignment="TOP_RIGHT" maxWidth="250.0" spacing="5.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER"
+          GridPane.rowIndex="2">
         <GridPane.margin>
-            <Insets bottom="20.0" left="20.0" right="20.0" />
+            <Insets bottom="20.0" left="20.0" right="20.0"/>
         </GridPane.margin>
-        <font>
-            <Font size="14.0" />
-        </font>
-        <padding>
-            <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
-        </padding>
-    </Button>
+        <Button mnemonicParsing="false" onAction="#reportsButton" text="See Reports">
+           <font>
+               <Font size="14.0"/>
+           </font>
+           <padding>
+               <Insets bottom="5.0" left="20.0" right="20.0" top="5.0"/>
+           </padding>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#logoutButton" text="Log Out">
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <padding>
+                <Insets bottom="5.0" left="20.0" right="20.0" top="5.0"/>
+            </padding>
+        </Button>
+    </HBox>
    <Label fx:id="noticeLabel" alignment="CENTER" text="You have no upcoming appointments." GridPane.columnSpan="2" GridPane.rowIndex="2" />
 </GridPane>

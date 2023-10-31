@@ -41,4 +41,15 @@ public abstract class ConverterUtility {
         }
         return appointmentsWithUser;
     }
+
+    public static List<String> getAllAppointmentTypes() {
+        List<String> appointmentTypes = new ArrayList<>();
+        List<Appointment> allAppointments = AppointmentDAO.getAllAppointments();
+        for (Appointment appointment : allAppointments) {
+            if (!appointmentTypes.contains(appointment.getType())) {
+                appointmentTypes.add(appointment.getType());
+            }
+        }
+        return appointmentTypes;
+    }
 }

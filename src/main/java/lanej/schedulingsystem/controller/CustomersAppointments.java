@@ -61,12 +61,13 @@ public class CustomersAppointments implements Initializable {
             // Checks if each item matches condition
             filteredList.setPredicate(item -> {
                 if (searchText.isEmpty()) {
-                    return true;
+                    return true; // Nothing in search field. Show all
                 }
-                if (searchText.matches("\\d+")) {
+                if (searchText.matches("\\d+")) { // searchText starts with a number, check id column.
                     return item.getId() == Integer.parseInt(searchText);
+                } else { // searchText is a text search (for title or name)
+                    return item.getName().toLowerCase().contains(searchText); // Returns false if not met
                 }
-                else return item.getName().toLowerCase().contains(searchText); // Returns false if not met
             });
 
             if (filteredList.isEmpty() && !searchText.isEmpty()) {
@@ -145,6 +146,7 @@ public class CustomersAppointments implements Initializable {
     public void logoutButton(ActionEvent actionEvent) {
         if (ScreenUtility.showConfirmation("Are you sure you want to log out?")) {
             ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.loginScene);
+            SchedulingApplication.loggedInUser = null;
         }
     }
 
@@ -219,10 +221,13 @@ public class CustomersAppointments implements Initializable {
             if (TimeUtility.detectOverlap(
                     LocalDateTime.now(), nowPlus15,
                     appointment.getStart(), appointment.getEnd())) {
-                ScreenUtility.showInformation("You have an appointment soon! Here are the details:\n" +
+                ScreenUtility.showInformation("You have an upcoming appointment! Here are the details" +
+                        ":\n" +
                         "\n" +
                         "Appointment ID: " + appointment.getAppointmentId() + "\n" +
-                        "Date/Start Time: " + timeFormat.format(appointment.getStart()) + " " +
+                        "Start Date/Time: " + timeFormat.format(appointment.getStart()) + " " +
+                        ZoneId.systemDefault().getDisplayName(TextStyle.SHORT, Locale.getDefault()) + "\n" +
+                        "End Date/Time: " + timeFormat.format(appointment.getEnd()) + " " +
                         ZoneId.systemDefault().getDisplayName(TextStyle.SHORT, Locale.getDefault()));
                 noticeLabel.setText("");
                 break;
@@ -247,8 +252,8 @@ public class CustomersAppointments implements Initializable {
         appointmentSearchField.setText("");
         appointmentFilteredList.setPredicate(item -> {
             LocalDateTime now = LocalDateTime.now();
-            LocalDateTime startOfMonth = now.withDayOfMonth(1);
-            LocalDateTime endOfMonth = now.withDayOfMonth(now.toLocalDate().lengthOfMonth()).plusDays(1);
+            LocalDateTime startOfMonth = now.withDayOfMonth(1).withHour(0).withMinute(0);
+            LocalDateTime endOfMonth = startOfMonth.plusMonths(1);
 
             return TimeUtility.detectOverlap(startOfMonth, endOfMonth, item.getStart(), item.getEnd());
         });
@@ -258,5 +263,9 @@ public class CustomersAppointments implements Initializable {
     public void allFilterSelected() {
         appointmentFilteredList.setPredicate(null);
         allToggle.setSelected(true);
+    }
+
+    public void reportsButton(ActionEvent actionEvent) {
+        ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.reportsView);
     }
 }

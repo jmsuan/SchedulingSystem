@@ -34,6 +34,11 @@ public class SchedulingApplication extends Application {
             "view/appointment-form.fxml",
             720.0,
             530.0);
+    public static SceneType reportsView = new SceneType(
+            "All Reports",
+            "view/report-view.fxml",
+            700.0,
+            570.0);
     public static User loggedInUser = null;
 
     @Override
