@@ -1,13 +1,9 @@
 package lanej.schedulingsystem.helper;
 
-import lanej.schedulingsystem.model.Appointment;
-
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.chrono.ChronoLocalDateTime;
-import java.time.temporal.TemporalField;
 
 public abstract class TimeUtility {
     public static LocalTime createLocalTime(int hour, int minute, String timePeriod) {
@@ -46,12 +42,6 @@ public abstract class TimeUtility {
             LocalDateTime dateTimeTwoStart,
             LocalDateTime dateTimeTwoEnd) {
         return dateTimeOneStart.isBefore(dateTimeTwoEnd) && dateTimeOneEnd.isAfter(dateTimeTwoStart);
-    }
-
-    public static boolean detectOverlap (Appointment appointment1, Appointment appointment2) {
-        return detectOverlap(
-                appointment1.getStart(), appointment1.getEnd(),
-                appointment2.getStart(), appointment2.getEnd());
     }
 
     public static boolean detectIfWithinWorkHours(LocalDateTime start, LocalDateTime end) {

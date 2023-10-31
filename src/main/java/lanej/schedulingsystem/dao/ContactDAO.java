@@ -27,7 +27,7 @@ public abstract class ContactDAO {
                             rs.getString("Email")
                     ));
                 }
-                System.out.println("Retrieved all contacts from database.");
+                // System.out.println("Retrieved all contacts from database.");
             } catch (SQLException sqlException) {
                 ScreenUtility.alert("Error when getting all the Contacts!\nMessage: " +
                         sqlException.getMessage());

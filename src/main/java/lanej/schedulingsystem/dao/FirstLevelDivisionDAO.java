@@ -44,7 +44,7 @@ public abstract class FirstLevelDivisionDAO {
             } finally {
                 allDivisions = divisionList;
                 initialized = true;
-                System.out.println("Retrieved all first-level divisions from database.");
+                // System.out.println("Retrieved all first-level divisions from database.");
             }
         }
         return allDivisions;

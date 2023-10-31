@@ -5,12 +5,12 @@ package lanej.schedulingsystem.helper;
  *
  */
 public class SceneType {
-    private String screenTitle = null;
-    private String filePath = null;
-    private Double minWidth = null;
-    private Double minHeight = null;
-    private Double width = null;
-    private Double height = null;
+    private String screenTitle;
+    private final String filePath;
+    private final Double minWidth;
+    private final Double minHeight;
+    private final Double width;
+    private final Double height;
     public SceneType(String screenTitle,
                      String filePath,
                      Double minWidth,

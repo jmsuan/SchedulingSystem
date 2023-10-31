@@ -49,10 +49,6 @@ public class ReportView implements Initializable {
         ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
     }
 
-    public void populateMonthBox() {
-        monthBox.getItems().addAll(Month.values());
-    }
-
     public void updateReport1() {
         // Get list of appointments with month
         List<Appointment> appointmentsWithMonth = new ArrayList<>();

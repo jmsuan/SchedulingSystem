@@ -3,7 +3,7 @@ package lanej.schedulingsystem.model;
 import java.time.LocalDateTime;
 
 public class Appointment implements TableSearchable {
-    private Integer appointmentId;
+    private final Integer appointmentId;
     private String title;
     private String description;
     private String location;
@@ -34,10 +34,6 @@ public class Appointment implements TableSearchable {
         this.customer = customer;
         this.user = user;
         this.contact = contact;
-    }
-
-    public void setAppointmentId(int appointmentId) {
-        this.appointmentId = appointmentId;
     }
 
     public void setTitle(String title) {

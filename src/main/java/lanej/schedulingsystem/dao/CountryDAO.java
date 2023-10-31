@@ -27,7 +27,7 @@ public abstract class CountryDAO {
                             rs.getString("Country")
                     ));
                 }
-                System.out.println("Retrieved all countries from database.");
+                // System.out.println("Retrieved all countries from database.");
             } catch (SQLException sqlException) {
                 ScreenUtility.alert("Error when getting all the Countries!\nMessage: " +
                         sqlException.getMessage());

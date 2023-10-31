@@ -13,8 +13,7 @@ import java.util.LinkedList;
 
 public abstract class CustomerDAO {
 
-    public static boolean insert(Customer customer) {
-        boolean successful = false;
+    public static void insert(Customer customer) {
         try {
             // Let database handle ID creation
             PreparedStatement query = JDBC.getConnection().prepareStatement(
@@ -30,14 +29,12 @@ public abstract class CustomerDAO {
             query.setString(3, customer.getPostalCode());
             query.setString(4, customer.getPhone());
             query.setInt(5, customer.getDivision().getDivisionId());
-            successful = query.executeUpdate() > 0;
+            query.executeUpdate();
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when adding customer!\nMessage: " + sqlException.getMessage());
         }
-        return successful;
     }
-    public static boolean update(Customer updatedCustomer) {
-        boolean successful = false;
+    public static void update(Customer updatedCustomer) {
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement(
                     "UPDATE customers SET " +
@@ -53,24 +50,21 @@ public abstract class CustomerDAO {
             query.setString(4, updatedCustomer.getPhone());
             query.setInt(5, updatedCustomer.getDivision().getDivisionId());
             query.setInt(6, updatedCustomer.getCustomerId());
-            successful = query.executeUpdate() > 0;
+            query.executeUpdate();
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when updating customer!\nMessage: " + sqlException.getMessage());
         }
-        return successful;
     }
 
-    public static boolean delete(Customer customer) {
-        boolean successful = false;
+    public static void delete(Customer customer) {
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement(
                     "DELETE FROM customers WHERE Customer_ID = ?");
             query.setInt(1, customer.getCustomerId());
-            successful = query.executeUpdate() > 0;
+            query.executeUpdate();
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when deleting customer!\nMessage: " + sqlException.getMessage());
         }
-        return successful;
     }
 
     public static ObservableList<Customer> getAllCustomers() {
@@ -99,7 +93,7 @@ public abstract class CustomerDAO {
                         rs.getString("Phone"),
                         divisionToSet));
             }
-            System.out.println("Retrieved all customers from database.");
+            // System.out.println("Retrieved all customers from database.");
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when retrieving all Customers!\nMessage: " +
                     sqlException.getMessage());

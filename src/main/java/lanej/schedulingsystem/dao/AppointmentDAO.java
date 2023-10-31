@@ -127,7 +127,7 @@ public abstract class AppointmentDAO {
                         contactForAppointment
                 ));
             }
-            System.out.println("Retrieved all appointments from database.");
+            // System.out.println("Retrieved all appointments from database.");
         } catch (SQLException sqlException) {
             ScreenUtility.alert("Error when retrieving all Appointments!\nMessage: " +
                     sqlException.getMessage());

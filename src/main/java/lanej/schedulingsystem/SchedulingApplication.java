@@ -9,6 +9,7 @@ import lanej.schedulingsystem.helper.ScreenUtility;
 import lanej.schedulingsystem.model.User;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ResourceBundle;
 
 public class SchedulingApplication extends Application {
@@ -40,6 +41,7 @@ public class SchedulingApplication extends Application {
             700.0,
             570.0);
     public static User loggedInUser = null;
+    public static PrintWriter activityLogger;
 
     @Override
     public void init() {
@@ -52,6 +54,10 @@ public class SchedulingApplication extends Application {
         // Attribution not required, but sourced here: https://uxwing.com/timetable-icon/
         Image iconImage = new Image(String.valueOf(SchedulingApplication.class.getResource("icon.png")));
         stage.getIcons().add(iconImage);
+
+        stage.setOnCloseRequest(closeEvent -> {
+            activityLogger.close();
+        });
 
         // Set stage to the first scene (the login screen)
         ScreenUtility.changeStageScene(stage, loginScene);
