@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lanej.schedulingsystem.SchedulingApplication;
 import lanej.schedulingsystem.dao.AppointmentDAO;
 import lanej.schedulingsystem.dao.CustomerDAO;
+import lanej.schedulingsystem.helper.ConverterUtility;
 import lanej.schedulingsystem.helper.ScreenUtility;
 import lanej.schedulingsystem.model.Appointment;
 import lanej.schedulingsystem.model.Customer;
@@ -44,8 +45,6 @@ public class CustomersAppointments implements Initializable {
     public TableColumn<Appointment, User> appointmentUserColumn;
     public TextField appointmentSearchField;
     public ToggleGroup scheduleRadioGroup;
-    private FilteredList<Customer> customerFilteredList;
-    private FilteredList<Appointment> appointmentFilteredList;
 
     private ChangeListener<Object> createTableSearchListener(FilteredList<? extends TableSearchable> filteredList) {
         return (observableValue, oldValue, newValue) -> {
@@ -64,17 +63,43 @@ public class CustomersAppointments implements Initializable {
 
             if (filteredList.isEmpty() && !searchText.isEmpty()) {
                 ScreenUtility.showWarning("No items were found for the provided search criteria!\n" +
-                        "Search for a valid ID number or name.");
+                        "Search for a valid ID number or name/title.");
             }
         };
     }
-    public void addCustomerButton(ActionEvent actionEvent) {
+    public void addCustomerButton(ActionEvent actionEvent) throws IOException {
+        CustomerForm.customerToModify = null;
+        ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);
     }
 
-    public void updateCustomerButton(ActionEvent actionEvent) {
+    public void updateCustomerButton(ActionEvent actionEvent) throws IOException {
+        if (!customerTable.getSelectionModel().isEmpty()) {
+            CustomerForm.customerToModify = customerTable.getSelectionModel().getSelectedItem();
+            ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);
+        } else {
+            ScreenUtility.showWarning("You must select a customer from the table.");
+        }
     }
 
-    public void deleteCustomerButton(ActionEvent actionEvent) {
+    public void deleteCustomerButton(ActionEvent actionEvent) throws IOException {
+        if (!customerTable.getSelectionModel().isEmpty()) {
+            if (ScreenUtility.showConfirmation(
+                    "Are you sure you want to delete this customer?\n" +
+                            "Deleting this customer will delete all appointments associated with the customer.")) {
+                Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+                // Delete all Appointments with customer
+                for (Appointment appointment : ConverterUtility.getAllAppointmentsOfCustomer(selectedCustomer)) {
+                    AppointmentDAO.delete(appointment);
+                }
+                CustomerDAO.delete(customerTable.getSelectionModel().getSelectedItem());
+                ScreenUtility.showInformation(
+                        "Customer and all associated appointments have been deleted.");
+                // Refresh tables
+                ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
+            }
+        } else {
+            ScreenUtility.showWarning("You must select a customer from the table.");
+        }
     }
 
     public void addAppointmentButton(ActionEvent actionEvent) {
@@ -87,7 +112,9 @@ public class CustomersAppointments implements Initializable {
     }
 
     public void logoutButton(ActionEvent actionEvent) throws IOException {
-        ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.loginScene);
+        if (ScreenUtility.showConfirmation("Are you sure you want to log out?")) {
+            ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.loginScene);
+        }
     }
 
     /**
@@ -102,12 +129,12 @@ public class CustomersAppointments implements Initializable {
         customerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
         ObservableList<Customer> customers = CustomerDAO.getAllCustomers();
         customers.sort(Comparator.comparingInt(Customer::getCustomerId));
-        customerFilteredList = new FilteredList<>(customers);
+        FilteredList<Customer> customerFilteredList = new FilteredList<>(customers);
         customerTable.setItems(customerFilteredList);
         customerTable.getSortOrder().add(customerIdColumn);
         customerTable.sort();
 
-        // TODO: Populate Appointment TableView
+        // Populate Appointment TableView
         appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
         appointmentDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -120,7 +147,7 @@ public class CustomersAppointments implements Initializable {
         appointmentUserColumn.setCellValueFactory(new PropertyValueFactory<>("User"));
         ObservableList<Appointment> appointments = AppointmentDAO.getAllAppointments();
         appointments.sort(Comparator.comparingInt(Appointment::getAppointmentId));
-        appointmentFilteredList = new FilteredList<>(appointments);
+        FilteredList<Appointment> appointmentFilteredList = new FilteredList<>(appointments);
         appointmentTable.setItems(appointmentFilteredList);
         appointmentTable.getSortOrder().add(appointmentIdColumn);
         appointmentTable.sort();
@@ -128,6 +155,5 @@ public class CustomersAppointments implements Initializable {
         // Filter tables by search criteria
         customerSearchField.textProperty().addListener(createTableSearchListener(customerFilteredList));
         appointmentSearchField.textProperty().addListener(createTableSearchListener(appointmentFilteredList));
-
     }
 }

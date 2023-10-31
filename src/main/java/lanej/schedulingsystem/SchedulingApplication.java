@@ -25,6 +25,11 @@ public class SchedulingApplication extends Application {
             350.0,
             1075.0,
             580.0);
+    public static SceneType customerForm = new SceneType(
+            "Add/Modify Customer",
+            "view/customer-form.fxml",
+            340.0,
+            570.0);
     public static User loggedInUser = null;
 
     @Override

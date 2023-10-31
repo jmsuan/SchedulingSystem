@@ -1,13 +1,13 @@
 package lanej.schedulingsystem.model;
 
 public class Customer implements TableSearchable {
-    private int customerId;
+    private Integer customerId;
     private String customerName;
     private String address;
     private String postalCode;
     private String phone;
     private FirstLevelDivision division;
-    public Customer(int customerId,
+    public Customer(Integer customerId,
                     String customerName,
                     String address,
                     String postalCode,

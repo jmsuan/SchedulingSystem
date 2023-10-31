@@ -55,7 +55,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
         </TableView>
-        <Label text="Customers">
+        <Label minWidth="-Infinity" text="Customers">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
@@ -75,7 +75,7 @@
             <GridPane.margin>
                 <Insets left="10.0" right="10.0" top="2.0" />
             </GridPane.margin>
-            <Button mnemonicParsing="false" onAction="#addCustomerButton" text="Add">
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#addCustomerButton" text="Add">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -86,7 +86,7 @@
                     <Insets left="5.0" />
                 </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#updateCustomerButton" text="Update">
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#updateCustomerButton" text="Update">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -97,7 +97,7 @@
                     <Insets left="5.0" />
                 </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#deleteCustomerButton" text="Delete">
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteCustomerButton" text="Delete">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -192,7 +192,7 @@
                 <Insets bottom="10.0" top="10.0" />
             </HBox.margin>
         </VBox>
-            <Button mnemonicParsing="false" onAction="#addAppointmentButton" prefWidth="66.0" text="Add">
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#addAppointmentButton" prefWidth="66.0" text="Add">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -203,7 +203,7 @@
                     <Insets left="5.0" />
                 </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#updateAppointmentButton" text="Update">
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#updateAppointmentButton" text="Update">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -214,7 +214,7 @@
                     <Insets left="5.0" />
                 </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#deleteAppointmentButton" text="Delete">
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteAppointmentButton" text="Delete">
                 <font>
                     <Font size="14.0" />
                 </font>
