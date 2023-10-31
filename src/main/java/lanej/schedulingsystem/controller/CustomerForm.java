@@ -47,8 +47,8 @@ public class CustomerForm implements Initializable {
                     divisionBox.getValue()
             ));
         }
-        ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
         customerToModify = null;
+        ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
     }
 
     /**
@@ -74,7 +74,7 @@ public class CustomerForm implements Initializable {
         divisionBox.getItems().addAll(FirstLevelDivisionDAO.getAllDivisions());
     }
 
-    public void populateDivisions() {
+    public void populateDivisions() { // Called when countryBox has an action
         divisionBox.getItems().removeAll(divisionBox.getItems());
         divisionBox.getItems().addAll(ConverterUtility.getAllDivisionsOfCountry(countryBox.getValue()));
     }
@@ -82,8 +82,8 @@ public class CustomerForm implements Initializable {
     public void cancelButtonPressed(ActionEvent actionEvent) {
         if (ScreenUtility.showConfirmation("Are you sure you want to cancel?\n" +
                 "All new information entered in the form will be lost.")) {
-            ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
             customerToModify = null;
+            ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
         }
     }
 }

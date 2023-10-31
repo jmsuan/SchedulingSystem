@@ -36,7 +36,7 @@ public abstract class AppointmentDAO {
             query.setTimestamp(5, Timestamp.valueOf(appointment.getStart()));
             query.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));
             query.setInt(7, appointment.getCustomer().getCustomerId());
-            query.setInt(8, appointment.getUser().getUserId());
+            query.setInt(8, appointment.getUser().userId());
             query.setInt(9, appointment.getContact().getContactId());
             successful = query.executeUpdate() > 0;
         } catch (SQLException sqlException) {
@@ -67,7 +67,7 @@ public abstract class AppointmentDAO {
             query.setTimestamp(5, Timestamp.valueOf(appointmentToUpdate.getStart()));
             query.setTimestamp(6, Timestamp.valueOf(appointmentToUpdate.getEnd()));
             query.setInt(7, appointmentToUpdate.getCustomer().getCustomerId());
-            query.setInt(8, appointmentToUpdate.getUser().getUserId());
+            query.setInt(8, appointmentToUpdate.getUser().userId());
             query.setInt(9, appointmentToUpdate.getContact().getContactId());
             successful = query.executeUpdate() > 0;
         } catch (SQLException sqlException) {

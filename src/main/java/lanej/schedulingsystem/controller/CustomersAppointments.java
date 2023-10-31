@@ -101,13 +101,13 @@ public class CustomersAppointments implements Initializable {
 
     public void addAppointmentButton(ActionEvent actionEvent) {
         AppointmentForm.appointmentToModify = null;
-        ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);
+        ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.appointmentForm);
     }
 
     public void updateAppointmentButton(ActionEvent actionEvent) {
         if (!appointmentTable.getSelectionModel().isEmpty()) {
             AppointmentForm.appointmentToModify = appointmentTable.getSelectionModel().getSelectedItem();
-            ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);
+            ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.appointmentForm);
         } else {
             ScreenUtility.showWarning("You must select an appointment from the table.");
         }
