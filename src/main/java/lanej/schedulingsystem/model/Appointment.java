@@ -2,7 +2,7 @@ package lanej.schedulingsystem.model;
 
 import java.time.LocalDateTime;
 
-public class Appointment {
+public class Appointment implements TableSearchable {
     private int appointmentId;
     private String title;
     private String description;
@@ -66,6 +66,12 @@ public class Appointment {
     }
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+    public int getId() {
+        return this.getAppointmentId();
+    }
+    public String getName() {
+        return this.getTitle();
     }
     public int getAppointmentId() {
         return appointmentId;

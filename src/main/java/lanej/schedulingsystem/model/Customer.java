@@ -1,6 +1,6 @@
 package lanej.schedulingsystem.model;
 
-public class Customer {
+public class Customer implements TableSearchable {
     private int customerId;
     private String customerName;
     private String address;
@@ -37,6 +37,12 @@ public class Customer {
     }
     public void setDivision(FirstLevelDivision division) {
         this.division = division;
+    }
+    public int getId() {
+        return this.getCustomerId();
+    }
+    public String getName() {
+        return this.getCustomerName();
     }
     public int getCustomerId() {
         return customerId;
