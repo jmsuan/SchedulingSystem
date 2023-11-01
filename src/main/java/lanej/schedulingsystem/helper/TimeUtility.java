@@ -5,7 +5,19 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/**
+ * Provides utility methods for time-based operations and checks.
+ * This class handles various time manipulations, calculations, and verifications.
+ */
 public abstract class TimeUtility {
+    /**
+     * Creates a LocalTime instance from given hour, minute, and time period (AM/PM).
+     *
+     * @param hour        the hour, from 1 to 12.
+     * @param minute      the minute, from 0 to 59.
+     * @param timePeriod  "AM" or "PM".
+     * @return LocalTime instance corresponding to the input parameters.
+     */
     public static LocalTime createLocalTime(int hour, int minute, String timePeriod) {
         assert (1 <= hour && hour <= 12);
         assert (0 <= minute && minute <= 59);
@@ -21,6 +33,13 @@ public abstract class TimeUtility {
         }
         return LocalTime.of(hour, minute);
     }
+
+    /**
+     * Returns the 12-hour format of the given LocalTime.
+     *
+     * @param time the LocalTime instance.
+     * @return hour value in 12-hour format.
+     */
     public static int shortHour(LocalTime time) {
         int hour = time.getHour();
         if (hour == 0) {
@@ -32,10 +51,25 @@ public abstract class TimeUtility {
         }
     }
 
+    /**
+     * Returns "AM" or "PM" based on the given LocalTime.
+     *
+     * @param time the LocalTime instance.
+     * @return "AM" or "PM" string.
+     */
     public static String amOrPm(LocalTime time) {
         return (time.getHour() >= 12) ? "PM" : "AM";
     }
 
+    /**
+     * Detects if two time intervals overlap.
+     *
+     * @param dateTimeOneStart start time of first interval.
+     * @param dateTimeOneEnd   end time of first interval.
+     * @param dateTimeTwoStart start time of second interval.
+     * @param dateTimeTwoEnd   end time of second interval.
+     * @return true if the intervals overlap, false otherwise.
+     */
     public static boolean detectOverlap(
             LocalDateTime dateTimeOneStart,
             LocalDateTime dateTimeOneEnd,
@@ -44,6 +78,14 @@ public abstract class TimeUtility {
         return dateTimeOneStart.isBefore(dateTimeTwoEnd) && dateTimeOneEnd.isAfter(dateTimeTwoStart);
     }
 
+    /**
+     * Checks if the given time interval falls within regular working hours.
+     * The working hours are between 8:00 AM to 10:00 PM in Eastern Time.
+     *
+     * @param start start time of the interval.
+     * @param end   end time of the interval.
+     * @return true if the interval is within working hours, false otherwise.
+     */
     public static boolean detectIfWithinWorkHours(LocalDateTime start, LocalDateTime end) {
         ZoneId localZone = ZoneId.systemDefault();
         ZoneId etZone = ZoneId.of("America/New_York");
