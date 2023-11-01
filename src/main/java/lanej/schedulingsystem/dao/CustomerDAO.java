@@ -11,8 +11,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+/**
+ * This class provides data access operations for the Customer class.
+ * It contains methods to insert, update, delete, and fetch customers from the database.
+ * <p>
+ * The operations are designed to interact with a database using JDBC.
+ * Errors during operations are communicated through alerts using the ScreenUtility class.
+ * </p>
+ *
+ * @author Jonathan Lane
+ * @version 1.0
+ */
 public abstract class CustomerDAO {
-
+    /**
+     * Inserts a new customer into the database.
+     *
+     * @param customer The customer to be inserted.
+     */
     public static void insert(Customer customer) {
         try {
             // Let database handle ID creation
@@ -34,6 +49,12 @@ public abstract class CustomerDAO {
             ScreenUtility.alert("Error when adding customer!\nMessage: " + sqlException.getMessage());
         }
     }
+
+    /**
+     * Updates the details of an existing customer in the database.
+     *
+     * @param updatedCustomer The customer with updated information.
+     */
     public static void update(Customer updatedCustomer) {
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement(
@@ -56,6 +77,11 @@ public abstract class CustomerDAO {
         }
     }
 
+    /**
+     * Deletes a customer from the database.
+     *
+     * @param customer The customer to be deleted.
+     */
     public static void delete(Customer customer) {
         try {
             PreparedStatement query = JDBC.getConnection().prepareStatement(
@@ -67,6 +93,13 @@ public abstract class CustomerDAO {
         }
     }
 
+    /**
+     * Retrieves all customers from the database.
+     * This operation fetches a fresh list each time it's called,
+     * as the list of customers may change during program execution.
+     *
+     * @return An observable list of customers.
+     */
     public static ObservableList<Customer> getAllCustomers() {
         // List of Customers may change during program execution,
         // so I will retrieve a fresh list each time this is called.
