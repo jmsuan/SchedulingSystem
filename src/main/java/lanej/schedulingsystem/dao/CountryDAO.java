@@ -2,7 +2,6 @@ package lanej.schedulingsystem.dao;
 
 import lanej.schedulingsystem.helper.ScreenUtility;
 import lanej.schedulingsystem.model.Country;
-import lanej.schedulingsystem.model.FirstLevelDivision;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

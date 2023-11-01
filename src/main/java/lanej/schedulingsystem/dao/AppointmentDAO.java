@@ -12,7 +12,25 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class provides data access operations for the Appointment class.
+ * It contains methods to insert, update, delete, and fetch appointments based on various criteria.
+ * <p>
+ * The operations are designed to interact with a database using JDBC.
+ * Errors during operations are communicated through alerts using the ScreenUtility class.
+ * </p>
+ *
+ * @author Jonathan Lane
+ * @version 1.0
+ */
 public abstract class AppointmentDAO {
+
+    /**
+     * Inserts a new appointment into the database.
+     *
+     * @param appointment The appointment to insert.
+     * @return true if the insertion was successful, otherwise false.
+     */
     public static boolean insert(Appointment appointment) {
         boolean successful = false;
         try {
@@ -45,6 +63,13 @@ public abstract class AppointmentDAO {
         }
         return successful;
     }
+
+    /**
+     * Updates an existing appointment in the database.
+     *
+     * @param appointmentToUpdate The appointment with updated details.
+     * @return true if the update was successful, otherwise false.
+     */
     public static boolean update(Appointment appointmentToUpdate) {
         boolean successful = false;
         try {
@@ -77,6 +102,12 @@ public abstract class AppointmentDAO {
         return successful;
     }
 
+    /**
+     * Deletes an appointment from the database.
+     *
+     * @param appointment The appointment to delete.
+     * @return true if the deletion was successful, otherwise false.
+     */
     public static boolean delete(Appointment appointment) {
         boolean successful = false;
         try {
@@ -90,6 +121,13 @@ public abstract class AppointmentDAO {
         return successful;
     }
 
+    /**
+     * Retrieves all appointments from the database.
+     * Unlike some other data, the list of appointments may change during program execution,
+     * so this method retrieves a fresh list each time it is called.
+     *
+     * @return An observable list of all appointments.
+     */
     public static ObservableList<Appointment> getAllAppointments() {
         // List of Appointments may change during program execution,
         // so I will retrieve a fresh list each time this is called.
