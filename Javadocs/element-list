@@ -1,0 +1,6 @@
+module:lanej.schedulingsystem
+lanej.schedulingsystem
+lanej.schedulingsystem.controller
+lanej.schedulingsystem.dao
+lanej.schedulingsystem.helper
+lanej.schedulingsystem.model

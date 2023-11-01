@@ -6,7 +6,7 @@
  * database using JDBC. The JDBC class was largely created by Malcolm Wabara (course instructor), although
  * I made some alterations.
  * </p>
- *
+ * <p>
  * Each DAO class corresponds to an entity, providing operations specific to that entity.
  * Errors during operations are communicated through alerts
  * using the {@link lanej.schedulingsystem.helper.ScreenUtility} class.

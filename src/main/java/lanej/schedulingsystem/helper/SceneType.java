@@ -15,10 +15,10 @@ package lanej.schedulingsystem.helper;
  *
  * <p>
  * Example usage:
+ * </p>
  * <pre>
  * SceneType loginScene = new SceneType("Login", "path/to/login.fxml", 300.0, 200.0);
  * </pre>
- * </p>
  *
  * @author Jonathan Lane
  * @version 1.0
