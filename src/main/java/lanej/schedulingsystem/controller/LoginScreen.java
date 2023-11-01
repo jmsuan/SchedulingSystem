@@ -20,6 +20,14 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class responsible for handling actions on the LoginScreen.
+ * It manages user input validations, user authentication, and scene transitions
+ * upon successful or failed login attempts.
+ *
+ * @author Jonathan Lane
+ * @version 1.0
+ */
 public class LoginScreen implements Initializable {
     ResourceBundle langBundle = ResourceBundle.getBundle("bundle/lang");
     public TextField usernameField;
@@ -32,6 +40,9 @@ public class LoginScreen implements Initializable {
 
 
     /**
+     * Initializes the LoginScreen with the appropriate labels, input fields, and
+     * activity logger. Executed when the FXML is loaded.
+     *
      * @param url The URL used to initialize the controller.
      * @param resourceBundle The ResourceBundle used to initialize the controller.
      */
@@ -58,6 +69,13 @@ public class LoginScreen implements Initializable {
         }
     }
 
+    /**
+     * Handles the user's login attempt by validating the inputted credentials,
+     * authenticating against the database, and transitioning to the next scene
+     * if authentication is successful. Failed attempts will result in alerts to the user.
+     *
+     * @param actionEvent The event triggered by the login button press.
+     */
     public void attemptLogin(ActionEvent actionEvent) {
         if (usernameField.getText().isBlank() || passwordField.getText().isBlank()) {
             ScreenUtility.alert(langBundle.getString("loginScreenAlertMissingCredentials"));

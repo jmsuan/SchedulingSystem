@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for displaying and managing the customers and appointments scene.
+ */
 public class CustomersAppointments implements Initializable {
     public TableView<Customer> customerTable;
     public TableColumn<Customer, Integer> customerIdColumn;
@@ -53,6 +56,15 @@ public class CustomersAppointments implements Initializable {
     public RadioButton monthToggle;
     public Label noticeLabel;
 
+    /**
+     * Generates a ChangeListener that listens to search input changes to filter the provided list's content.
+     * The lambda expression makes this listener creation concise. By utilizing a lambda here, the code readability
+     * is greatly improved to the alternative (i.e. implementing a new class) and it allows for easy reusability of
+     * the listener logic across different filtered lists that implement TableSearchable.
+     *
+     * @param filteredList The FilteredList that needs its content filtered based on the search input.
+     * @return The ChangeListener that filters the provided list's content based on search input.
+     */
     private ChangeListener<Object> createTableSearchListener(FilteredList<? extends TableSearchable> filteredList) {
         return (observableValue, oldValue, newValue) -> {
             scheduleRadioGroup.selectToggle(allToggle);
@@ -77,11 +89,24 @@ public class CustomersAppointments implements Initializable {
         };
     }
 
+    /**
+     * Handles the event when the add customer button is clicked.
+     * Takes the user to the scene for adding a customer.
+     *
+     * @param actionEvent The event triggered by the button click.
+     */
     public void addCustomerButton(ActionEvent actionEvent) {
         CustomerForm.customerToModify = null;
         ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customerForm);
     }
 
+    /**
+     * Handles the event when the update customer button is clicked.
+     * Takes the user to the scene for updating a customer after setting
+     * CustomerForm.customerToModify to the user's selected customer.
+     *
+     * @param actionEvent The event triggered by the button click.
+     */
     public void updateCustomerButton(ActionEvent actionEvent) {
         if (!customerTable.getSelectionModel().isEmpty()) {
             CustomerForm.customerToModify = customerTable.getSelectionModel().getSelectedItem();
@@ -91,6 +116,14 @@ public class CustomersAppointments implements Initializable {
         }
     }
 
+    /**
+     * Handles the event when the delete customer button is clicked.
+     * Confirms that the user wants the customer to be deleted, because it will also make all the appointments for that
+     * customer also be deleted (due to the aptly set Foreign Key constraints in the database). Checks to make sure the
+     * user actually has a customer selected before trying to delete any.
+     *
+     * @param actionEvent The event triggered by the button click.
+     */
     public void deleteCustomerButton(ActionEvent actionEvent) {
         if (!customerTable.getSelectionModel().isEmpty()) {
             if (ScreenUtility.showConfirmation(
@@ -112,11 +145,24 @@ public class CustomersAppointments implements Initializable {
         }
     }
 
+    /**
+     * Handles the event when the add customer button is clicked.
+     * Takes the user to the scene for adding an appointment.
+     *
+     * @param actionEvent The event triggered by the button click.
+     */
     public void addAppointmentButton(ActionEvent actionEvent) {
         AppointmentForm.appointmentToModify = null;
         ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.appointmentForm);
     }
 
+    /**
+     * Handles the event when the add customer button is clicked.
+     * Takes the user to the scene for modifying an appointment after passing the user's selected appointment into
+     * the AppointmentForm.appointmentToModify variable.
+     *
+     * @param actionEvent The event triggered by the button click.
+     */
     public void updateAppointmentButton(ActionEvent actionEvent) {
         if (!appointmentTable.getSelectionModel().isEmpty()) {
             AppointmentForm.appointmentToModify = appointmentTable.getSelectionModel().getSelectedItem();
@@ -126,6 +172,12 @@ public class CustomersAppointments implements Initializable {
         }
     }
 
+    /**
+     * Handles the event when the delete appointment button is clicked.
+     * Checks to make sure the user actually has a customer selected before trying to delete any.
+     *
+     * @param actionEvent The event triggered by the button click.
+     */
     public void deleteAppointmentButton(ActionEvent actionEvent) {
         if (!appointmentTable.getSelectionModel().isEmpty()) {
             if (ScreenUtility.showConfirmation("Are you sure you want to delete this appointment?")) {
@@ -143,14 +195,25 @@ public class CustomersAppointments implements Initializable {
         }
     }
 
+    /**
+     * Takes the user back to the log-in screen again after clearing
+     * the SchedulingApplication.loggedInUser variable.
+     *
+     * @param actionEvent The event triggered by the button click.
+     */
     public void logoutButton(ActionEvent actionEvent) {
         if (ScreenUtility.showConfirmation("Are you sure you want to log out?")) {
-            ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.loginScene);
             SchedulingApplication.loggedInUser = null;
+            ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.loginScene);
         }
     }
 
     /**
+     * Initializes the controller and sets up the necessary configurations.
+     * The lambda expression used for cell factories provides a concise way to override the updateItem method,
+     * which is essential for custom rendering of table cells. Leveraging lambdas in this manner makes the
+     * code more readable by highlighting the logic directly within the context of the method call.
+     *
      * @param url The URL used to initialize the controller.
      * @param resourceBundle The ResourceBundle used to initialize the controller.
      */
@@ -236,6 +299,11 @@ public class CustomersAppointments implements Initializable {
 
     }
 
+    /**
+     * Filters the appointment table to only display appointments scheduled within the current week.
+     * The lambda expression provides a concise way to define the filtering logic for the list. Using lambdas
+     * in this manner centralizes and simplifies the logic for filtering the list, making it easier to understand.
+     */
     public void weekFilterSelected() {
         appointmentSearchField.setText("");
         appointmentFilteredList.setPredicate(item -> {
@@ -248,6 +316,11 @@ public class CustomersAppointments implements Initializable {
         weekToggle.setSelected(true);
     }
 
+    /**
+     * Filters the appointment table to only display appointments scheduled within the current month.
+     * The lambda expression provides a concise way to define the filtering logic for the list. Using lambdas
+     * in this manner centralizes and simplifies the logic for filtering the list, making it easier to understand.
+     */
     public void monthFilterSelected() {
         appointmentSearchField.setText("");
         appointmentFilteredList.setPredicate(item -> {
@@ -260,11 +333,20 @@ public class CustomersAppointments implements Initializable {
         monthToggle.setSelected(true);
     }
 
+    /**
+     * Removes all filters from the appointment table, displaying all appointments.
+     */
     public void allFilterSelected() {
         appointmentFilteredList.setPredicate(null);
         allToggle.setSelected(true);
     }
 
+    /**
+     * Handles the event when the reports button is clicked by taking the user to the scene with a variety of reports
+     * regarding the application's data.
+     *
+     * @param actionEvent The event triggered by the button click.
+     */
     public void reportsButton(ActionEvent actionEvent) {
         ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.reportsView);
     }
