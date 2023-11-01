@@ -23,8 +23,12 @@ Software & Drivers Used:
 - IntelliJ IDEA 2023.2.2 (Community Edition)
 - Java SE 17.0.1 (LTS)
 - JavaFX SDK 17.0.6 (LTS)
-- MySQL Java Connector Driver (mysql-connector-java-8.0.30)
+- MySQL Java Connector Driver (mysql-connector-j-8.2.0)
 
+Note of the MySQL driver: This is the latest version of the driver, they renamed/refactored it from "java" to "j".
+                          The previous versions that were suggested have CVEs and wouldn't expert properly, so I
+                          updated it. Info confirming the change is at the link below.
+                          https://dev.mysql.com/doc/connectors/en/connector-j-installing-maven.html
 
 How To Run the Program:
 =======================
