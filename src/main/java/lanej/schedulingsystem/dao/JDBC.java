@@ -12,13 +12,15 @@ import java.sql.DriverManager;
  * way to manage the database connection for the scheduling system application.
  * </p>
  *
- * <p>Huge thank you to Malcolm Wabara, who provided the webinar and most of
- * the logic that was used here. I referenced his implementation of the JDBC
- * heavily, but made a couple adjustments to fit my application. (One example
- * being that I would rather obtain the Connection through a getter, in case
- * I (or someone else) wants to maintain the login on it at a later date.</p>
+ * <p>Huge thank you to Malcolm Wabara (course instructor), who provided the
+ * webinar and most of the logic that was used here. I referenced his
+ * implementation of the JDBC heavily, but made a couple adjustments to fit
+ * my application. (One example being that I would rather obtain the
+ * Connection through a getter, in case I (or someone else) wants to maintain
+ * the login on it at a later date.</p>
  *
  * @author Jonathan Lane
+ * @version 1.0
  */
 public abstract class JDBC {
     /** JDBC protocol prefix. */

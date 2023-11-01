@@ -3,7 +3,8 @@
  * <p>
  * The classes in this package provide methods to perform CRUD operations (Create, Read, Update, Delete)
  * on entities such as User, Contact, and Appointment. These operations are designed to interact with a
- * database using JDBC.
+ * database using JDBC. The JDBC class was largely created by Malcolm Wabara (course instructor), although
+ * I made some alterations.
  * </p>
  *
  * Each DAO class corresponds to an entity, providing operations specific to that entity.
