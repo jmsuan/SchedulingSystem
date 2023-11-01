@@ -26,6 +26,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
 
+/**
+ * Represents the ReportView controller responsible for displaying various report-based functionalities.
+ *
+ * @author Jonathan Lane
+ * @version 1.0
+ */
 public class ReportView implements Initializable {
     public TableView<Appointment> appointmentTable;
     public TableColumn<Appointment, Integer> appointmentIdColumn;
@@ -45,10 +51,21 @@ public class ReportView implements Initializable {
     public RadioButton withAppointmentsChoice;
     public RadioButton noAppointmentsChoice;
 
+    /**
+     * Navigates the user back to the previous screen.
+     *
+     * @param actionEvent the event triggered by the button click
+     */
     public void goBackButton(ActionEvent actionEvent) {
         ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
     }
 
+    /**
+     * Updates the report based on the selected month and type from the ComboBoxes.
+     * <p>
+     * This method filters and counts the appointments based on the selected criteria.
+     * </p>
+     */
     public void updateReport1() {
         // Get list of appointments with month
         List<Appointment> appointmentsWithMonth = new ArrayList<>();
@@ -86,6 +103,12 @@ public class ReportView implements Initializable {
         }
     }
 
+    /**
+     * Updates the TableView to display appointments based on the selected contact.
+     * <p>
+     * This method formats the displayed data appropriately and filters the appointments for a specific contact.
+     * </p>
+     */
     public void updateReport2() {
         // Populating Appointment TableView
         appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
@@ -148,6 +171,12 @@ public class ReportView implements Initializable {
         });
     }
 
+    /**
+     * Updates the report displaying count of customers based on their appointment status.
+     * <p>
+     * The report shows counts for customers with and without appointments.
+     * </p>
+     */
     public void updateReport3() {
         // Get all customer count
         Integer countAll = CustomerDAO.getAllCustomers().size();
@@ -172,6 +201,8 @@ public class ReportView implements Initializable {
     }
 
     /**
+     * Initializes the controller by setting up the ComboBox values and default report values.
+     *
      * @param url The URL used to initialize the controller.
      * @param resourceBundle The ResourceBundle used to initialize the controller.
      */

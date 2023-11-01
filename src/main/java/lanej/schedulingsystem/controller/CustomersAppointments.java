@@ -30,6 +30,9 @@ import java.util.ResourceBundle;
 
 /**
  * Controller class for displaying and managing the customers and appointments scene.
+ *
+ * @author Jonathan lane
+ * @version 1.0
  */
 public class CustomersAppointments implements Initializable {
     public TableView<Customer> customerTable;

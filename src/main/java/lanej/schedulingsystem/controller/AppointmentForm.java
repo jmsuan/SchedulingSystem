@@ -23,7 +23,14 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the appointment form screen used to add or modify appointments.
+ *
+ * @author Jonathan Lane
+ * @version 1.0
+ */
 public class AppointmentForm implements Initializable {
+    /** Appointment object used to transfer information from user selection in previous scenes. */
     public static Appointment appointmentToModify;
     public Label titleLabel;
     public TextField idField;
@@ -45,10 +52,19 @@ public class AppointmentForm implements Initializable {
     public ComboBox<User> userBox;
     public ComboBox<Contact> contactBox;
 
+    /**
+     * Sets the end date to be the same as the start date when the start date is selected.
+     */
     public void startDateSelected() {
         endDate.setValue(startDate.getValue());
     }
 
+    /**
+     * Event handler for when the submit button is pressed. Validates the user's input, and checks if the appointment
+     * time isn't fully within business hours. Saves the input into either an appointment update or new appointment.
+     *
+     * @param actionEvent the event triggered by pressing the button.
+     */
     public void submitButtonPressed(ActionEvent actionEvent) {
         // Check for missing fields
         if (titleField.getText().isBlank() || descriptionArea.getText().isBlank() ||
@@ -121,6 +137,12 @@ public class AppointmentForm implements Initializable {
         ScreenUtility.changeStageScene(actionEvent, SchedulingApplication.customersAppointmentsScene);
     }
 
+    /**
+     * Event handler for when the cancel button is pressed. Takes the user back to the main customer/appointment list
+     * screen after a confirmation.
+     *
+     * @param actionEvent the event triggered by pressing the button.
+     */
     public void cancelButtonPressed(ActionEvent actionEvent) {
         if (ScreenUtility.showConfirmation("Are you sure you want to cancel?\n" +
                 "All new information entered in the form will be lost.")) {
@@ -130,6 +152,9 @@ public class AppointmentForm implements Initializable {
     }
 
     /**
+     * Initialization method called when the form is loaded. Sets time spinners to be reasonably accessible, and if we
+     * are modifying an existing appointment, populate the form fields.
+     *
      * @param url The URL used to initialize the controller.
      * @param resourceBundle The ResourceBundle used to initialize the controller.
      */
