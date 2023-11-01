@@ -9,7 +9,7 @@ module lanej.schedulingsystem {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires mysql.connector.java;
+    requires mysql.connector.j;
 
 
     opens lanej.schedulingsystem to javafx.fxml;
