@@ -25,7 +25,7 @@ Software & Drivers Used:
 - JavaFX SDK 17.0.6 (LTS)
 - MySQL Java Connector Driver (mysql-connector-j-8.2.0)
 
-Note of the MySQL driver: This is the latest version of the driver, they renamed/refactored it from "java" to "j".
+Note on the MySQL driver: This is the latest version of the driver, they renamed/refactored it from "java" to "j".
                           The previous versions that were suggested have CVEs and wouldn't expert properly, so I
                           updated it. Info confirming the change is at the link below.
                           https://dev.mysql.com/doc/connectors/en/connector-j-installing-maven.html
